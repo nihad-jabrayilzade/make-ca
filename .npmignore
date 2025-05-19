@@ -21,6 +21,7 @@ node_modules/
 .eslintignore
 .prettierrc
 .prettierignore
+make-ca-project/
 
 # Misc
 *.log

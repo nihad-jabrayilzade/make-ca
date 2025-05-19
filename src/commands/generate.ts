@@ -1,6 +1,6 @@
 import path from 'path';
-import chalk from 'chalk';
-import ora from 'ora';
+const ora = require('ora');
+const chalk = require('chalk');
 import { formatEntityName } from '../utils/formatting';
 import { isProjectInitialized, createEntityDirectories, renderTemplate } from '../utils/filesystem';
 
