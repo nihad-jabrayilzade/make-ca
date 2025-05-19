@@ -1,0 +1,11 @@
+export const <%= entity.pascalCase %>DITokens = {
+  // Repository
+  <%= entity.pascalCase %>Repository: Symbol("<%= entity.pascalCase %>Repository"),
+  
+  // Use cases
+  Get<%= entity.pascalCase %>UseCase: Symbol("Get<%= entity.pascalCase %>UseCase"),
+  Get<%= entity.pluralPascalCase %>UseCase: Symbol("Get<%= entity.pluralPascalCase %>UseCase"),
+  Create<%= entity.pascalCase %>UseCase: Symbol("Create<%= entity.pascalCase %>UseCase"),
+  Update<%= entity.pascalCase %>UseCase: Symbol("Update<%= entity.pascalCase %>UseCase"),
+  Delete<%= entity.pascalCase %>UseCase: Symbol("Delete<%= entity.pascalCase %>UseCase"),
+}; 

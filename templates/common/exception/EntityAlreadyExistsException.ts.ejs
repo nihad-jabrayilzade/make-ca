@@ -1,0 +1,7 @@
+import { Exception } from './Exception';
+
+export class EntityAlreadyExistsException extends Exception {
+  constructor(entityName: string, identifier: string) {
+    super(`${entityName} with identifier ${identifier} already exists`);
+  }
+} 

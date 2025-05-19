@@ -1,0 +1,149 @@
+import { IsEnum, IsInt, IsNotEmpty, IsString, Min, IsObject, IsOptional, ValidateNested, ValidateIf } from "class-validator";
+import { Type } from "class-transformer";
+import {
+  AppConfig,
+  Config,
+  DatabaseConfig,
+  Environment,
+  MysqlDatabaseConfig,
+  SwaggerSecuritySchemeConfig,
+  SwaggerConfig,
+  SwaggerContactConfig,
+  SwaggerSecuritySchemeType,
+} from "./type";
+
+export class SwaggerContactConfigValidationSchema implements SwaggerContactConfig {
+  @IsString()
+  @IsOptional()
+  name?: string;
+
+  @IsString()
+  @IsOptional()
+  url?: string;
+
+  @IsString()
+  @IsOptional()
+  email?: string;
+}
+
+export class SwaggerSecuritySchemeConfigValidationSchema implements SwaggerSecuritySchemeConfig {
+  @IsOptional()
+  // @IsEnum(SwaggerSecuritySchemeType)
+  type?: SwaggerSecuritySchemeType;
+
+  @IsOptional()
+  @IsString()
+  in?: string;
+
+  @IsOptional()
+  @IsString()
+  name?: string;
+}
+
+export class SwaggerConfigValidationSchema implements SwaggerConfig {
+  @IsOptional()
+  @IsString()
+  path?: string;
+
+  @IsOptional()
+  @IsString()
+  title?: string;
+
+  @IsOptional()
+  @IsString()
+  description?: string;
+
+  @IsOptional()
+  @IsString()
+  version?: string;
+
+  @ValidateNested()
+  @IsOptional()
+  @Type(() => SwaggerContactConfigValidationSchema)
+  contact?: SwaggerContactConfigValidationSchema;
+
+  @ValidateNested()
+  @IsOptional()
+  @Type(() => SwaggerSecuritySchemeConfigValidationSchema)
+  auth?: SwaggerSecuritySchemeConfigValidationSchema;
+}
+
+export class MysqlDatabaseConfigValidationSchema implements MysqlDatabaseConfig {
+  @IsString()
+  @IsNotEmpty()
+  host: string;
+
+  @IsInt()
+  @Min(1)
+  port: number;
+
+  @IsString()
+  @IsNotEmpty()
+  username: string;
+
+  @IsString()
+  @IsNotEmpty()
+  password: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @IsOptional()
+  name?: string;
+
+  @IsInt()
+  @Min(0)
+  retryAttempts: number;
+
+  @IsInt()
+  @Min(0)
+  connectTimeout: number;
+}
+
+export class DatabaseConfigValidationSchema implements DatabaseConfig {
+  @ValidateNested()
+  @Type(() => MysqlDatabaseConfigValidationSchema)
+  mysql: MysqlDatabaseConfigValidationSchema;
+}
+
+export class AppConfigValidationSchema implements AppConfig {
+  @IsInt()
+  @Min(1)
+  port: number;
+
+  @IsString()
+  @IsNotEmpty()
+  hostname: string;
+
+  @IsString()
+  @IsNotEmpty()
+  prefix: string;
+
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  description: string;
+
+  @IsString()
+  @IsNotEmpty()
+  title: string;
+}
+
+export class ConfigValidationSchema implements Config {
+  @IsEnum(Environment)
+  environment: Environment;
+
+  @ValidateNested()
+  @Type(() => AppConfigValidationSchema)
+  app: AppConfigValidationSchema;
+
+  @ValidateNested()
+  @Type(() => DatabaseConfigValidationSchema)
+  database: DatabaseConfigValidationSchema;
+
+  @ValidateNested()
+  @Type(() => SwaggerConfigValidationSchema)
+  swagger: SwaggerConfigValidationSchema;
+} 

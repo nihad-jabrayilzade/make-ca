@@ -1,0 +1,25 @@
+export class Assert {
+  public static isTrue(condition: boolean, error: Error): void {
+    if (!condition) {
+      throw error;
+    }
+  }
+
+  public static isFalse(condition: boolean, error: Error): void {
+    if (condition) {
+      throw error;
+    }
+  }
+
+  public static notNull<T>(value: T | null | undefined, error: Error): asserts value is T {
+    if (value === null || value === undefined) {
+      throw error;
+    }
+  }
+
+  public static notEmpty<T>(value: T[] | null | undefined, error: Error): asserts value is T[] {
+    if (value === null || value === undefined || value.length === 0) {
+      throw error;
+    }
+  }
+} 

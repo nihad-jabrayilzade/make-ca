@@ -1,0 +1,4 @@
+import { UseCase } from "@core/common/use-case";
+import { Create<%= entity.pascalCase %>UseCasePort, Create<%= entity.pascalCase %>UseCaseResult } from "@core/domain/<%= entity.kebabCase %>/use-case";
+
+export type Create<%= entity.pascalCase %>UseCase = UseCase<Create<%= entity.pascalCase %>UseCasePort, Create<%= entity.pascalCase %>UseCaseResult>; 

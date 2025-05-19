@@ -1,0 +1,63 @@
+export type Config = {
+  environment: Environment;
+  app: AppConfig;
+  database: DatabaseConfig;
+  swagger?: SwaggerConfig;
+};
+
+export enum Environment {
+  Development = "development",
+  Production = "production",
+  Test = "test",
+}
+
+export enum SwaggerSecuritySchemeType {
+  ApiKey = "apiKey",
+  Http = "http",
+  OAuth2 = "oauth2",
+  OpenIdConnect = "openIdConnect",
+}
+
+export type AppConfig = {
+  port: number;
+  hostname: string;
+  prefix: string;
+  name: string;
+  description: string;
+  title: string;
+};
+
+export type DatabaseConfig = {
+  mysql: MysqlDatabaseConfig;
+};
+
+export type MysqlDatabaseConfig = {
+  host: string;
+  port: number;
+  username: string;
+  password: string;
+  name?: string;
+  retryAttempts: number;
+  connectTimeout: number;
+};
+
+export type SwaggerConfig = {
+  path?: string;
+  title?: string;
+  description?: string;
+  version?: string;
+  contact?: SwaggerContactConfig;
+  securityScheme?: SwaggerSecuritySchemeConfig;
+};
+
+export type SwaggerContactConfig = {
+  name?: string;
+  url?: string;
+  email?: string;
+};
+
+export type SwaggerSecuritySchemeConfig = {
+  type?: SwaggerSecuritySchemeType;
+  in?: string;
+  name?: string;
+}; 

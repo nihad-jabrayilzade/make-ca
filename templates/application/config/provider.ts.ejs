@@ -1,0 +1,17 @@
+import { join } from 'path';
+import { readFileSync } from 'fs';
+import * as yaml from 'js-yaml';
+import { ConfigModule } from '@nestjs/config';
+
+const YAML_CONFIG_FILENAME = 'config.yaml';
+
+export const AppConfigProvider = ConfigModule.forRoot({
+  load: [() => {
+    try {
+      return yaml.load(readFileSync(join(process.cwd(), YAML_CONFIG_FILENAME), 'utf8'));
+    } catch (error) {
+      console.error(`Error loading config file: ${error}`);
+      return {};
+    }
+  }],
+}); 

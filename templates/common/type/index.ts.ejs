@@ -1,0 +1,31 @@
+export type Id = number;
+
+export type Nullable<T> = T | null;
+
+export type NotNullable<T> = NonNullable<T>;
+
+export type NumericString = string;
+
+export type DateString = string;
+
+export type EmailString = string;
+
+export type PhoneString = string;
+
+export type UrlString = string;
+
+export type JsonString = string;
+
+export type Base64String = string;
+
+export type HexString = string;
+
+export type UuidString = string;
+
+export type IpString = string;
+
+export type RequireAtLeastOne<T> = {
+  [K in keyof T]-?: Required<Pick<T, K>> & Partial<Pick<T, Exclude<keyof T, K>>>;
+}[keyof T];
+
+export type TinyInt = 1 | 0; 

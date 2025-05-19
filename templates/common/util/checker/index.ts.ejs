@@ -1,0 +1,45 @@
+export class Checker {
+  public static isTrue(value: boolean): boolean {
+    return value === true;
+  }
+
+  public static isFalse(value: boolean): boolean {
+    return value === false;
+  }
+
+  public static isNull<T>(value: T | null | undefined): value is null | undefined {
+    return value === null || value === undefined;
+  }
+
+  public static isNotNull<T>(value: T | null | undefined): value is T {
+    return value !== null && value !== undefined;
+  }
+
+  public static isEmpty<T>(value: T[] | null | undefined): boolean {
+    return value === null || value === undefined || value.length === 0;
+  }
+
+  public static isNotEmpty<T>(value: T[] | null | undefined): boolean {
+    return value !== null && value !== undefined && value.length > 0;
+  }
+
+  public static notEmpty<T>(value: T | null | undefined): value is T {
+    return value !== null && value !== undefined && value !== "";
+  }
+
+  public static notNull<T>(entity: T | null): entity is T {
+    return entity !== null;
+  }
+
+  public static isDefined<T>(entity: T | undefined): entity is T {
+    return entity !== undefined;
+  }
+
+  public static notDefined<T>(entity: T | undefined): entity is T {
+    return entity === undefined;
+  }
+
+  public static isEmptyString(value: string): boolean {
+    return value.trim() === "";
+  }
+} 

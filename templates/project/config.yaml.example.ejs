@@ -1,0 +1,33 @@
+environment: development
+
+app:
+  hostname: localhost
+  port: 3000
+  prefix: api
+  name: <%= projectName %>
+  description: Clean Architecture API
+  title: <%= projectName %> API
+
+database:
+  mysql:
+    host: localhost
+    port: 3306
+    username: root
+    password: root
+    name: clean_architecture
+    retryAttempts: 10
+    connectTimeout: 30000
+
+swagger:
+  path: docs
+  title: <%= projectName %> API
+  description: Clean Architecture API Documentation
+  version: 1.0.0
+  contact:
+    name: API Support
+    url: http://www.example.com/support
+    email: support@example.com
+  securityScheme:
+    type: http
+    in: header
+    name: Authorization 

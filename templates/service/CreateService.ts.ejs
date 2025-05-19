@@ -1,0 +1,15 @@
+import { <%= entity.pascalCase %>Repository } from "@core/domain/<%= entity.kebabCase %>/repository";
+import { Create<%= entity.pascalCase %>UseCasePort, Create<%= entity.pascalCase %>UseCaseResult, Create<%= entity.pascalCase %>UseCase } from "@core/domain/<%= entity.kebabCase %>/use-case";
+import { <%= entity.pascalCase %> } from "@core/domain/<%= entity.kebabCase %>/entity";
+
+export class Create<%= entity.pascalCase %>Service implements Create<%= entity.pascalCase %>UseCase {
+  constructor(private readonly <%= entity.camelCase %>Repository: <%= entity.pascalCase %>Repository) {}
+
+  public async execute(port: Create<%= entity.pascalCase %>UseCasePort): Create<%= entity.pascalCase %>UseCaseResult {
+    // You can add validation logic here if needed
+
+    const result = await this.<%= entity.camelCase %>Repository.create<%= entity.pascalCase %>(port);
+
+    return result;
+  }
+} 

@@ -1,0 +1,9 @@
+import { DomainException } from "@core/common/exception";
+
+export class <%= entity.pascalCase %>NotFoundException extends DomainException {
+  public static readonly message: string = "<%= entity.pascalCase %> not found";
+
+  public constructor() {
+    super(<%= entity.pascalCase %>NotFoundException.message);
+  }
+} 

@@ -1,0 +1,64 @@
+import { NestFactory } from "@nestjs/core";
+import { NestExpressApplication } from "@nestjs/platform-express";
+import { Logger } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { DocumentBuilder, OpenAPIObject, SwaggerModule } from "@nestjs/swagger";
+import { RootModule } from "@application/di/RootModule";
+import { AppConfig, SwaggerConfig } from "@application/config";
+
+export class ServerApplication {
+  private app: NestExpressApplication;
+
+  private configService: ConfigService;
+
+  private logger: Logger = new Logger(ServerApplication.name);
+
+  public async run(): Promise<void> {
+    this.app = await NestFactory.create<NestExpressApplication>(RootModule);
+
+    this.configService = this.app.get(ConfigService);
+
+    this.enableCors();
+
+    this.setGlobalPrefix();
+
+    this.setupSwagger();
+
+    const appConfig = this.configService.get<AppConfig>("app");
+    const appHostname = appConfig.hostname;
+    const appPort = appConfig.port;
+
+    await this.app.listen(appPort, appHostname);
+
+    this.logger.log(`App running at ${appHostname}:${appPort}`);
+  }
+
+  private enableCors(): void {
+    this.app.enableCors();
+  }
+
+  private setupSwagger(): void {
+    const config = this.configService.get<SwaggerConfig>("swagger");
+
+    const options: Omit<OpenAPIObject, "paths"> = new DocumentBuilder()
+      .setTitle(config.title)
+      .setDescription(config.description)
+      .setTitle(config.title)
+      .setVersion(config.version)
+      .setContact(config.contact.name, config.contact.url, config.contact.email)
+      .addBearerAuth({ type: config.securityScheme.type, in: config.securityScheme.in, name: config.securityScheme.name })
+      .build();
+
+    const document: OpenAPIObject = SwaggerModule.createDocument(this.app, options);
+    SwaggerModule.setup(config.path, this.app, document);
+  }
+
+  private setGlobalPrefix(): void {
+    const appGlobalPrefix = this.configService.get<AppConfig["prefix"]>("app.prefix");
+    this.app.setGlobalPrefix(appGlobalPrefix);
+  }
+
+  public static new(): ServerApplication {
+    return new ServerApplication();
+  }
+} 

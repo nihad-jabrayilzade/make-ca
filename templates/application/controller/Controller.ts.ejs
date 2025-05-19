@@ -1,0 +1,74 @@
+import { Controller, Inject, Body, Query, Param, ParseIntPipe, Get, Post, Put, Delete } from "@nestjs/common";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { RestApiGet<%= entity.pluralPascalCase %>Query, RestApiCreate<%= entity.pascalCase %>Body, RestApiUpdate<%= entity.pascalCase %>Body } from "@application/api/rest/<%= entity.kebabCase %>/documentation";
+import { <%= entity.pascalCase %>DITokens } from "@core/domain/<%= entity.kebabCase %>/di";
+import {
+  Get<%= entity.pascalCase %>UseCase,
+  Get<%= entity.pascalCase %>UseCaseResult,
+  Get<%= entity.pluralPascalCase %>UseCase,
+  Get<%= entity.pluralPascalCase %>UseCaseResult,
+  Create<%= entity.pascalCase %>UseCase,
+  Create<%= entity.pascalCase %>UseCaseResult,
+  Update<%= entity.pascalCase %>UseCase,
+  Update<%= entity.pascalCase %>UseCaseResult,
+  Delete<%= entity.pascalCase %>UseCase,
+  Delete<%= entity.pascalCase %>UseCaseResult,
+} from "@core/domain/<%= entity.kebabCase %>/use-case";
+
+@Controller("<%= entity.pluralKebabCase %>")
+@ApiTags("<%= entity.pluralPascalCase %>")
+@ApiBearerAuth()
+export class <%= entity.pascalCase %>Controller {
+  constructor(
+    @Inject(<%= entity.pascalCase %>DITokens.Get<%= entity.pascalCase %>UseCase) private readonly get<%= entity.pascalCase %>UseCase: Get<%= entity.pascalCase %>UseCase,
+    @Inject(<%= entity.pascalCase %>DITokens.Get<%= entity.pluralPascalCase %>UseCase) private readonly get<%= entity.pluralPascalCase %>UseCase: Get<%= entity.pluralPascalCase %>UseCase,
+    @Inject(<%= entity.pascalCase %>DITokens.Create<%= entity.pascalCase %>UseCase) private readonly create<%= entity.pascalCase %>UseCase: Create<%= entity.pascalCase %>UseCase,
+    @Inject(<%= entity.pascalCase %>DITokens.Update<%= entity.pascalCase %>UseCase) private readonly update<%= entity.pascalCase %>UseCase: Update<%= entity.pascalCase %>UseCase,
+    @Inject(<%= entity.pascalCase %>DITokens.Delete<%= entity.pascalCase %>UseCase) private readonly delete<%= entity.pascalCase %>UseCase: Delete<%= entity.pascalCase %>UseCase,
+  ) {}
+
+  @Get()
+  public async get<%= entity.pluralPascalCase %>(@Query() query: RestApiGet<%= entity.pluralPascalCase %>Query): Get<%= entity.pluralPascalCase %>UseCaseResult {
+    const result = await this.get<%= entity.pluralPascalCase %>UseCase.execute({
+      offset: query.offset,
+      limit: query.limit,
+    });
+
+    return result;
+  }
+
+  @Get(":id")
+  public async get<%= entity.pascalCase %>(@Param("id", new ParseIntPipe()) id: number): Get<%= entity.pascalCase %>UseCaseResult {
+    const result = await this.get<%= entity.pascalCase %>UseCase.execute({
+      id,
+    });
+
+    return result;
+  }
+
+  @Post()
+  public async create<%= entity.pascalCase %>(@Body() body: RestApiCreate<%= entity.pascalCase %>Body): Create<%= entity.pascalCase %>UseCaseResult {
+    const result = await this.create<%= entity.pascalCase %>UseCase.execute(body);
+
+    return result;
+  }
+
+  @Put(":id")
+  public async update<%= entity.pascalCase %>(@Param("id", new ParseIntPipe()) id: number, @Body() body: RestApiUpdate<%= entity.pascalCase %>Body): Update<%= entity.pascalCase %>UseCaseResult {
+    const result = await this.update<%= entity.pascalCase %>UseCase.execute({
+      id,
+      ...body,
+    });
+
+    return result;
+  }
+
+  @Delete(":id")
+  public async delete<%= entity.pascalCase %>(@Param("id", new ParseIntPipe()) id: number): Delete<%= entity.pascalCase %>UseCaseResult {
+    const result = await this.delete<%= entity.pascalCase %>UseCase.execute({
+      id,
+    });
+
+    return result;
+  }
+} 

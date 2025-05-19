@@ -1,0 +1,7 @@
+import { Exception } from './Exception';
+
+export class EntityNotFoundException extends Exception {
+  constructor(entityName: string, id: string | number) {
+    super(`${entityName} with id ${id} not found`);
+  }
+} 

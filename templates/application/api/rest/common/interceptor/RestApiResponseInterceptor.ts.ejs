@@ -1,0 +1,27 @@
+import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { Response } from "express";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
+
+@Injectable()
+export class RestApiResponseInterceptor implements NestInterceptor {
+  public constructor(private readonly configService: ConfigService) {}
+
+  public intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    const http = context.switchToHttp();
+    const request = http.getRequest<Request>();
+    const response = http.getResponse<Response>();
+
+    return next.handle().pipe(
+      map((data) => {
+        return {
+          status: response.status,
+          statusCode: response.statusCode,
+          method: request.method,
+          data,
+        };
+      }),
+    );
+  }
+} 

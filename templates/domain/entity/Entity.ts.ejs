@@ -1,0 +1,37 @@
+import { Id, Nullable } from "@core/common/type";
+
+export class <%= entity.pascalCase %> {
+  public readonly id: Id;
+
+  public readonly createdAt: Date;
+
+  public updatedAt: Date;
+
+  public deletedAt: Nullable<Date>;
+
+  public constructor(payload: CreatePayload) {
+    this.id = payload.id;
+    this.createdAt = payload.createdAt;
+    this.updatedAt = payload.updatedAt;
+    this.deletedAt = payload.deletedAt;
+  }
+
+  public update(payload: any): <%= entity.pascalCase %> {
+    this.updatedAt = new Date();
+
+    return this;
+  }
+
+  public delete(): <%= entity.pascalCase %> {
+    this.deletedAt = new Date();
+
+    return this;
+  }
+}
+
+type CreatePayload = {
+  id: <%= entity.pascalCase %>["id"];
+  createdAt: <%= entity.pascalCase %>["createdAt"];
+  updatedAt: <%= entity.pascalCase %>["updatedAt"];
+  deletedAt: <%= entity.pascalCase %>["deletedAt"];
+} 

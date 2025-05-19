@@ -1,0 +1,19 @@
+import { <%= entity.pascalCase %>Repository } from "@core/domain/<%= entity.kebabCase %>/repository";
+import { Update<%= entity.pascalCase %>UseCasePort, Update<%= entity.pascalCase %>UseCaseResult, Update<%= entity.pascalCase %>UseCase } from "@core/domain/<%= entity.kebabCase %>/use-case";
+import { <%= entity.pascalCase %>NotFoundException } from "@core/domain/<%= entity.kebabCase %>/exception";
+
+export class Update<%= entity.pascalCase %>Service implements Update<%= entity.pascalCase %>UseCase {
+  constructor(private readonly <%= entity.camelCase %>Repository: <%= entity.pascalCase %>Repository) {}
+
+  public async execute(port: Update<%= entity.pascalCase %>UseCasePort): Update<%= entity.pascalCase %>UseCaseResult {
+    const exists = await this.<%= entity.camelCase %>Repository.exists({ id: port.id });
+    
+    if (!exists) {
+      throw new <%= entity.pascalCase %>NotFoundException();
+    }
+
+    const result = await this.<%= entity.camelCase %>Repository.update<%= entity.pascalCase %>(port);
+
+    return result;
+  }
+} 

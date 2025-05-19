@@ -1,0 +1,27 @@
+# Source
+src/
+tsconfig.json
+
+# Tests
+__tests__/
+*.test.ts
+*.spec.ts
+test/
+test.sh
+manual-test.md
+
+# Development
+.vscode/
+.idea/
+.github/
+.git/
+node_modules/
+.gitignore
+.eslintrc
+.eslintignore
+.prettierrc
+.prettierignore
+
+# Misc
+*.log
+.DS_Store 

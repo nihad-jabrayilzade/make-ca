@@ -1,0 +1,6 @@
+/**
+ * Base interface for all use cases in the application
+ */
+export interface UseCase<Port, Result> {
+  execute(port: Port): Result;
+} 

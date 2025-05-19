@@ -1,0 +1,99 @@
+import { Repository } from "typeorm";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Injectable } from "@nestjs/common";
+import { <%= entity.pascalCase %>Repository } from "@core/domain/<%= entity.kebabCase %>/repository";
+import {
+  Get<%= entity.pascalCase %>RepositoryPort,
+  Get<%= entity.pascalCase %>RepositoryResult,
+  Get<%= entity.pluralPascalCase %>RepositoryPort,
+  Get<%= entity.pluralPascalCase %>RepositoryResult,
+  Create<%= entity.pascalCase %>RepositoryPort,
+  Create<%= entity.pascalCase %>RepositoryResult,
+  Update<%= entity.pascalCase %>RepositoryPort,
+  Update<%= entity.pascalCase %>RepositoryResult,
+  Delete<%= entity.pascalCase %>RepositoryPort,
+  Delete<%= entity.pascalCase %>RepositoryResult,
+  Is<%= entity.pascalCase %>ExistsRepositoryPort,
+  Is<%= entity.pascalCase %>ExistsRepositoryResult,
+} from "@core/domain/<%= entity.kebabCase %>/repository";
+import { TypeOrm<%= entity.pascalCase %> } from "./TypeOrm<%= entity.pascalCase %>.entity";
+import { TypeOrm<%= entity.pascalCase %>Mapper } from "./TypeOrm<%= entity.pascalCase %>Mapper";
+
+@Injectable()
+export class TypeOrm<%= entity.pascalCase %>Repository implements <%= entity.pascalCase %>Repository {
+  constructor(
+    @InjectRepository(TypeOrm<%= entity.pascalCase %>)
+    private readonly <%= entity.camelCase %>Repository: Repository<TypeOrm<%= entity.pascalCase %>>,
+  ) {}
+
+  public async get<%= entity.pascalCase %>(port: Get<%= entity.pascalCase %>RepositoryPort): Get<%= entity.pascalCase %>RepositoryResult {
+    const <%= entity.camelCase %> = await this.<%= entity.camelCase %>Repository.findOne({
+      where: { id: port.id }
+    });
+
+    return TypeOrm<%= entity.pascalCase %>Mapper.toDomain(<%= entity.camelCase %>);
+  }
+
+  public async get<%= entity.pluralPascalCase %>(port: Get<%= entity.pluralPascalCase %>RepositoryPort): Get<%= entity.pluralPascalCase %>RepositoryResult {
+    const [<%= entity.pluralCamelCase %>, count] = await this.<%= entity.camelCase %>Repository.findAndCount({
+      skip: port.offset,
+      take: port.limit,
+    });
+
+    return {
+      data: TypeOrm<%= entity.pascalCase %>Mapper.toDomainList(<%= entity.pluralCamelCase %>),
+      count,
+    };
+  }
+
+  public async create<%= entity.pascalCase %>(port: Create<%= entity.pascalCase %>RepositoryPort): Create<%= entity.pascalCase %>RepositoryResult {
+    // Create a new entity (implement according to your requirements)
+    const <%= entity.camelCase %> = this.<%= entity.camelCase %>Repository.create({
+      // Add properties based on port
+    });
+
+    const created<%= entity.pascalCase %> = await this.<%= entity.camelCase %>Repository.save(<%= entity.camelCase %>);
+
+    return TypeOrm<%= entity.pascalCase %>Mapper.toDomain(created<%= entity.pascalCase %>);
+  }
+
+  public async update<%= entity.pascalCase %>(port: Update<%= entity.pascalCase %>RepositoryPort): Update<%= entity.pascalCase %>RepositoryResult {
+    const <%= entity.camelCase %> = await this.<%= entity.camelCase %>Repository.findOne({
+      where: { id: port.id }
+    });
+
+    if (!<%= entity.camelCase %>) {
+      return null;
+    }
+
+    // Update entity properties (implement according to your requirements)
+    // <%= entity.camelCase %>.someProperty = port.someProperty;
+
+    const updated<%= entity.pascalCase %> = await this.<%= entity.camelCase %>Repository.save(<%= entity.camelCase %>);
+
+    return TypeOrm<%= entity.pascalCase %>Mapper.toDomain(updated<%= entity.pascalCase %>);
+  }
+
+  public async delete<%= entity.pascalCase %>(port: Delete<%= entity.pascalCase %>RepositoryPort): Delete<%= entity.pascalCase %>RepositoryResult {
+    const <%= entity.camelCase %> = await this.<%= entity.camelCase %>Repository.findOne({
+      where: { id: port.id }
+    });
+
+    if (!<%= entity.camelCase %>) {
+      return null;
+    }
+
+    // Using soft delete (since we have DeleteDateColumn)
+    await this.<%= entity.camelCase %>Repository.softDelete(port.id);
+
+    return TypeOrm<%= entity.pascalCase %>Mapper.toDomain(<%= entity.camelCase %>);
+  }
+
+  public async exists(port: Is<%= entity.pascalCase %>ExistsRepositoryPort): Is<%= entity.pascalCase %>ExistsRepositoryResult {
+    const count = await this.<%= entity.camelCase %>Repository.count({
+      where: { id: port.id }
+    });
+
+    return count > 0;
+  }
+} 
