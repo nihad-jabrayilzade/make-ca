@@ -1,9 +1,0 @@
-import { Id } from '../type';
-
-export interface Repository<T> {
-  findById(id: Id): Promise<T | null>;
-  findAll(): Promise<T[]>;
-  save(entity: T): Promise<T>;
-  update(id: Id, entity: Partial<T>): Promise<T>;
-  delete(id: Id): Promise<void>;
-} 

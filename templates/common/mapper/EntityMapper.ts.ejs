@@ -1,6 +1,7 @@
-export interface EntityMapper<O, D> {
-  toDomainEntity(entity: O): D;
-  toDomainEntities(entities: O[]): D[];
-  toOrmEntity(entity: D): O;
-  toOrmEntities(entities: D[]): O[];
-} 
+export interface EntityMapper<OrmEntity, DomainEntity> {
+  toDomainEntity?(ormEntity: OrmEntity): DomainEntity;
+  toDomainEntities?(ormEntities: OrmEntity[]): DomainEntity[];
+
+  toOrmEntity?(domainEntity: DomainEntity): OrmEntity;
+  toOrmEntities?(domainEntities: DomainEntity[]): OrmEntity[];
+}

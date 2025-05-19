@@ -1,1 +1,4 @@
-export type GetEntitiesRepositoryResult<T> = Promise<T[]>; 
+export type GetEntitiesRepositoryResult<E> = Promise<{
+  items: E[];
+  totalItems: number;
+}>;
