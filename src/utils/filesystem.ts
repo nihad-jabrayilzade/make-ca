@@ -1,8 +1,8 @@
-import fs from 'fs-extra';
-import path from 'path';
-import chalk from 'chalk';
-import ora from 'ora';
-import ejs from 'ejs';
+const fs = require('fs-extra');
+const path = require('path');
+const chalk = require('chalk');
+const ora = require('ora');
+const ejs = require('ejs');
 import { EntityNameFormats } from './formatting';
 
 /**

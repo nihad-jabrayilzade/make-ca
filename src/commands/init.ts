@@ -1,7 +1,7 @@
-import chalk from 'chalk';
-import fs from 'fs-extra';
-import path from 'path';
-import ora from 'ora';
+const chalk = require('chalk');
+const fs = require('fs-extra');
+const path = require('path');
+const ora = require('ora');
 import { isProjectInitialized, initializeProjectStructure } from '../utils/filesystem';
 
 /**
