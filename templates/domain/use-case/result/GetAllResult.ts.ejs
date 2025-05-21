@@ -1,6 +1,4 @@
+import { GetEntitiesUseCaseResult } from "@core/common/use-case";
 import { <%= entity.pascalCase %> } from "@core/domain/<%= entity.kebabCase %>/entity";
 
-export type Get<%= entity.pluralPascalCase %>UseCaseResult = Promise<{
-  data: <%= entity.pascalCase %>[];
-  count: number;
-}>; 
+export type Get<%= entity.pluralPascalCase %>UseCaseResult = GetEntitiesUseCaseResult<<%= entity.pascalCase %>>; 

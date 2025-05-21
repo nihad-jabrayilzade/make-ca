@@ -1,3 +1,4 @@
-export type Create<%= entity.pascalCase %>RepositoryPort = {
-  // Add specific creation fields here
-}; 
+import { CreateEntityRepositoryPort } from "@core/common/repository";
+import { <%= entity.pascalCase %> } from "@core/domain/<%= entity.kebabCase %>/entity";
+
+export type Create<%= entity.pascalCase %>RepositoryPort = CreateEntityRepositoryPort<<%= entity.pascalCase %>>; 

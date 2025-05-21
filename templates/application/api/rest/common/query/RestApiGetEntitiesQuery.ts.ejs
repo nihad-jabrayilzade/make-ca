@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Exclude, Expose, Transform } from "class-transformer";
 import { IsNumber, IsOptional, Min } from "class-validator";
-import { ENTITY_LIST_DEFAULT_LIMIT } from "@core/common/constants";
+import { ENTITIES_DEFAULT_LIMIT } from "@core/common/constants";
 
 @Exclude()
 export class RestApiGetEntitiesQuery {
@@ -19,10 +19,10 @@ export class RestApiGetEntitiesQuery {
   @Expose()
   @IsOptional()
   @IsNumber()
-  @Transform((params) => (params.value ? +params.value : ENTITY_LIST_DEFAULT_LIMIT))
+  @Transform((params) => (params.value ? +params.value : ENTITIES_DEFAULT_LIMIT))
   @ApiProperty({
     type: Number,
     required: false,
   })
-  public limit: number = ENTITY_LIST_DEFAULT_LIMIT;
+  public limit: number = ENTITIES_DEFAULT_LIMIT;
 } 

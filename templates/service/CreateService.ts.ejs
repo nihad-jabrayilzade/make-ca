@@ -1,15 +1,25 @@
+import { Assert } from "@core/common/util/assert";
+import { NotNullable } from "@core/common/type";
 import { <%= entity.pascalCase %>Repository } from "@core/domain/<%= entity.kebabCase %>/repository";
-import { Create<%= entity.pascalCase %>UseCasePort, Create<%= entity.pascalCase %>UseCaseResult, Create<%= entity.pascalCase %>UseCase } from "@core/domain/<%= entity.kebabCase %>/use-case";
-import { <%= entity.pascalCase %> } from "@core/domain/<%= entity.kebabCase %>/entity";
+import { Create<%= entity.pascalCase %>UseCase, Create<%= entity.pascalCase %>UseCaseResult, Create<%= entity.pascalCase %>UseCasePort } from "@core/domain/<%= entity.kebabCase %>/use-case";
+import { <%= entity.pascalCase %>AlreadyExistsException } from "@core/domain/<%= entity.kebabCase %>/exception";
 
 export class Create<%= entity.pascalCase %>Service implements Create<%= entity.pascalCase %>UseCase {
   constructor(private readonly <%= entity.camelCase %>Repository: <%= entity.pascalCase %>Repository) {}
 
   public async execute(port: Create<%= entity.pascalCase %>UseCasePort): Create<%= entity.pascalCase %>UseCaseResult {
-    // You can add validation logic here if needed
+    // REPLACE: Add the required unique field for creating <%= entity.camelCase %>
+    const dummyUniquePropertyFromPort = 10000;
+
+    const exists = await this.<%= entity.camelCase %>Repository.exists({ id: dummyUniquePropertyFromPort });
+    Assert.isFalse(exists, new <%= entity.pascalCase %>AlreadyExistsException(dummyUniquePropertyFromPort));
 
     const result = await this.<%= entity.camelCase %>Repository.create<%= entity.pascalCase %>(port);
 
-    return result;
+    const <%= entity.camelCase %> = await this.<%= entity.camelCase %>Repository.get<%= entity.pascalCase %>({
+      id: result.id,
+    });
+
+    return <%= entity.camelCase %> as NotNullable<typeof <%= entity.camelCase %>>;
   }
 } 

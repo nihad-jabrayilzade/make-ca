@@ -1,6 +1,4 @@
+import { GetEntitiesRepositoryResult } from "@core/common/repository";
 import { <%= entity.pascalCase %> } from "@core/domain/<%= entity.kebabCase %>/entity";
 
-export type Get<%= entity.pluralPascalCase %>RepositoryResult = Promise<{
-  data: <%= entity.pascalCase %>[];
-  count: number;
-}>; 
+export type Get<%= entity.pluralPascalCase %>RepositoryResult = GetEntitiesRepositoryResult<<%= entity.pascalCase %>>; 

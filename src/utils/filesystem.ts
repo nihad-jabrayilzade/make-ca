@@ -176,6 +176,7 @@ export function initializeProjectStructure(projectPath?: string): void {
  */
 async function copyCommonTemplates(targetPath: string): Promise<void> {
   const commonDirs = [
+    'constants',
     'type',
     'use-case',
     'use-case/result',
@@ -184,6 +185,7 @@ async function copyCommonTemplates(targetPath: string): Promise<void> {
     'mapper',
     'repository',
     'repository/result',
+    'repository/port',
     'util/delay',
     'util/assert',
     'util/checker'
@@ -234,13 +236,7 @@ async function createNestJSFiles(projectPath: string, projectName: string): Prom
         path.join(projectPath, file.dest),
         file.data || {}
       );
-    }
-    
-    // Copy config.yaml.example to config.yaml
-    fs.copyFileSync(
-      path.join(projectPath, 'config.yaml.example'),
-      path.join(projectPath, 'config.yaml')
-    );
+    };
     
     // Create application files
     const appFiles = [
@@ -294,8 +290,7 @@ async function createNestJSFiles(projectPath: string, projectName: string): Prom
     
     // Create infrastructure files
     const infraFiles = [
-      { template: 'infrastructure/persistence/typeorm/index.ts.ejs', dest: 'src/infrastructure/persistence/typeorm/index.ts' },
-      { template: 'infrastructure/persistence/typeorm/TypeOrmPersistenceModule.ts.ejs', dest: 'src/infrastructure/persistence/typeorm/TypeOrmPersistenceModule.ts' }
+      { template: 'infrastructure/persistence/typeorm/index.ts.ejs', dest: 'src/infrastructure/persistence/typeorm/index.ts' }
     ];
     
     for (const file of infraFiles) {

@@ -8,7 +8,9 @@ interface GenerateOptions {
 	skipDomain?: boolean
 	skipInfrastructure?: boolean
 	skipApplication?: boolean
-	path?: string
+	onlyDomain?: boolean
+	onlyInfrastructure?: boolean
+	onlyApplication?: boolean
 }
 
 /**
@@ -22,8 +24,8 @@ export async function generateCommand(entityName: string, options: GenerateOptio
 	const spinner = ora('Starting entity generation...').start()
 
 	try {
-		// Use provided path or current directory
-		const projectPath = options.path ? path.resolve(options.path) : process.cwd()
+		// Use current directory as project path
+		const projectPath = process.cwd()
 
 		// Check if project is initialized
 		if (!isProjectInitialized(projectPath)) {
@@ -40,13 +42,28 @@ export async function generateCommand(entityName: string, options: GenerateOptio
 		// Create directories for the entity
 		const dirs = createEntityDirectories(entityName, projectPath)
 
+		// Determine which layers to generate
+		const generateDomain =
+			options.onlyDomain || (!options.skipDomain && !options.onlyInfrastructure && !options.onlyApplication)
+		const generateInfrastructure =
+			options.onlyInfrastructure || (!options.skipInfrastructure && !options.onlyDomain && !options.onlyApplication)
+		const generateApplication =
+			options.onlyApplication || (!options.skipApplication && !options.onlyDomain && !options.onlyInfrastructure)
+
 		// Generate templates based on options
 		const templatesDir = path.join(__dirname, '../../templates')
 
 		// Core domain layer
-		if (!options.skipDomain) {
+		if (generateDomain) {
 			const domainSpinner = ora('Generating domain layer...').start()
 			try {
+				// DI
+				await renderTemplate(
+					path.join(templatesDir, 'domain/di/index.ts.ejs'),
+					path.join(dirs.domainDir, 'di', 'index.ts'),
+					{ entity }
+				)
+
 				// Entity
 				await renderTemplate(
 					path.join(templatesDir, 'domain/entity/Entity.ts.ejs'),
@@ -57,6 +74,25 @@ export async function generateCommand(entityName: string, options: GenerateOptio
 				await renderTemplate(
 					path.join(templatesDir, 'domain/entity/index.ts.ejs'),
 					path.join(dirs.domainDir, 'entity', 'index.ts'),
+					{ entity }
+				)
+
+				// Exceptions
+				await renderTemplate(
+					path.join(templatesDir, 'domain/exception/NotFoundException.ts.ejs'),
+					path.join(dirs.domainDir, 'exception', `${entity.pascalCase}NotFoundException.ts`),
+					{ entity }
+				)
+
+				await renderTemplate(
+					path.join(templatesDir, 'domain/exception/AlreadyExistsException.ts.ejs'),
+					path.join(dirs.domainDir, 'exception', `${entity.pascalCase}AlreadyExistsException.ts`),
+					{ entity }
+				)
+
+				await renderTemplate(
+					path.join(templatesDir, 'domain/exception/index.ts.ejs'),
+					path.join(dirs.domainDir, 'exception', 'index.ts'),
 					{ entity }
 				)
 
@@ -105,8 +141,8 @@ export async function generateCommand(entityName: string, options: GenerateOptio
 				)
 
 				await renderTemplate(
-					path.join(templatesDir, 'domain/repository/port/ExistsPort.ts.ejs'),
-					path.join(dirs.domainDir, 'repository', 'port', `Exists${entity.pascalCase}RepositoryPort.ts`),
+					path.join(templatesDir, 'domain/repository/port/IsExistsPort.ts.ejs'),
+					path.join(dirs.domainDir, 'repository', 'port', `Is${entity.pascalCase}ExistsRepositoryPort.ts`),
 					{ entity }
 				)
 
@@ -148,8 +184,8 @@ export async function generateCommand(entityName: string, options: GenerateOptio
 				)
 
 				await renderTemplate(
-					path.join(templatesDir, 'domain/repository/result/ExistsResult.ts.ejs'),
-					path.join(dirs.domainDir, 'repository', 'result', `Exists${entity.pascalCase}RepositoryResult.ts`),
+					path.join(templatesDir, 'domain/repository/result/IsExistsResult.ts.ejs'),
+					path.join(dirs.domainDir, 'repository', 'result', `Is${entity.pascalCase}ExistsRepositoryResult.ts`),
 					{ entity }
 				)
 
@@ -191,8 +227,82 @@ export async function generateCommand(entityName: string, options: GenerateOptio
 				)
 
 				await renderTemplate(
-					path.join(templatesDir, 'domain/use-case/ExistsUseCase.ts.ejs'),
-					path.join(dirs.domainDir, 'use-case', `Exists${entity.pascalCase}UseCase.ts`),
+					path.join(templatesDir, 'domain/use-case/index.ts.ejs'),
+					path.join(dirs.domainDir, 'use-case', 'index.ts'),
+					{ entity }
+				)
+
+				// Use case ports
+				await renderTemplate(
+					path.join(templatesDir, 'domain/use-case/port/GetPort.ts.ejs'),
+					path.join(dirs.domainDir, 'use-case', 'port', `Get${entity.pascalCase}UseCasePort.ts`),
+					{ entity }
+				)
+
+				await renderTemplate(
+					path.join(templatesDir, 'domain/use-case/port/GetAllPort.ts.ejs'),
+					path.join(dirs.domainDir, 'use-case', 'port', `Get${entity.pluralPascalCase}UseCasePort.ts`),
+					{ entity }
+				)
+
+				await renderTemplate(
+					path.join(templatesDir, 'domain/use-case/port/CreatePort.ts.ejs'),
+					path.join(dirs.domainDir, 'use-case', 'port', `Create${entity.pascalCase}UseCasePort.ts`),
+					{ entity }
+				)
+
+				await renderTemplate(
+					path.join(templatesDir, 'domain/use-case/port/UpdatePort.ts.ejs'),
+					path.join(dirs.domainDir, 'use-case', 'port', `Update${entity.pascalCase}UseCasePort.ts`),
+					{ entity }
+				)
+
+				await renderTemplate(
+					path.join(templatesDir, 'domain/use-case/port/DeletePort.ts.ejs'),
+					path.join(dirs.domainDir, 'use-case', 'port', `Delete${entity.pascalCase}UseCasePort.ts`),
+					{ entity }
+				)
+
+				await renderTemplate(
+					path.join(templatesDir, 'domain/use-case/port/index.ts.ejs'),
+					path.join(dirs.domainDir, 'use-case', 'port', 'index.ts'),
+					{ entity }
+				)
+
+				// Use case results
+				await renderTemplate(
+					path.join(templatesDir, 'domain/use-case/result/GetResult.ts.ejs'),
+					path.join(dirs.domainDir, 'use-case', 'result', `Get${entity.pascalCase}UseCaseResult.ts`),
+					{ entity }
+				)
+
+				await renderTemplate(
+					path.join(templatesDir, 'domain/use-case/result/GetAllResult.ts.ejs'),
+					path.join(dirs.domainDir, 'use-case', 'result', `Get${entity.pluralPascalCase}UseCaseResult.ts`),
+					{ entity }
+				)
+
+				await renderTemplate(
+					path.join(templatesDir, 'domain/use-case/result/CreateResult.ts.ejs'),
+					path.join(dirs.domainDir, 'use-case', 'result', `Create${entity.pascalCase}UseCaseResult.ts`),
+					{ entity }
+				)
+
+				await renderTemplate(
+					path.join(templatesDir, 'domain/use-case/result/UpdateResult.ts.ejs'),
+					path.join(dirs.domainDir, 'use-case', 'result', `Update${entity.pascalCase}UseCaseResult.ts`),
+					{ entity }
+				)
+
+				await renderTemplate(
+					path.join(templatesDir, 'domain/use-case/result/DeleteResult.ts.ejs'),
+					path.join(dirs.domainDir, 'use-case', 'result', `Delete${entity.pascalCase}UseCaseResult.ts`),
+					{ entity }
+				)
+
+				await renderTemplate(
+					path.join(templatesDir, 'domain/use-case/result/index.ts.ejs'),
+					path.join(dirs.domainDir, 'use-case', 'result', 'index.ts'),
 					{ entity }
 				)
 
@@ -204,7 +314,8 @@ export async function generateCommand(entityName: string, options: GenerateOptio
 		}
 
 		// Service layer
-		if (!options.skipDomain) {
+		if (generateDomain) {
+			// Assuming service layer is part of domain generation
 			const serviceSpinner = ora('Generating service layer...').start()
 			try {
 				await renderTemplate(
@@ -249,32 +360,32 @@ export async function generateCommand(entityName: string, options: GenerateOptio
 		}
 
 		// Infrastructure layer
-		if (!options.skipInfrastructure) {
+		if (generateInfrastructure) {
 			const infraSpinner = ora('Generating infrastructure layer...').start()
 			try {
-				await renderTemplate(
-					path.join(templatesDir, 'infrastructure/TypeOrmEntity.ts.ejs'),
-					path.join(dirs.infraDir, `TypeOrm${entity.pascalCase}.entity.ts`),
-					{ entity }
-				)
+        await renderTemplate(
+          path.join(templatesDir, 'infrastructure/persistence/typeorm/feature/TypeOrmEntity.ts.ejs'),
+          path.join(dirs.infraDir, `TypeOrm${entity.pascalCase}.entity.ts`),
+          { entity }
+        )
 
-				await renderTemplate(
-					path.join(templatesDir, 'infrastructure/TypeOrmMapper.ts.ejs'),
-					path.join(dirs.infraDir, `TypeOrm${entity.pascalCase}Mapper.ts`),
-					{ entity }
-				)
+        await renderTemplate(
+          path.join(templatesDir, 'infrastructure/persistence/typeorm/feature/TypeOrmMapper.ts.ejs'),
+          path.join(dirs.infraDir, `TypeOrm${entity.pascalCase}Mapper.ts`),
+          { entity }
+        )
 
-				await renderTemplate(
-					path.join(templatesDir, 'infrastructure/TypeOrmRepository.ts.ejs'),
-					path.join(dirs.infraDir, `TypeOrm${entity.pascalCase}Repository.ts`),
-					{ entity }
-				)
+        await renderTemplate(
+          path.join(templatesDir, 'infrastructure/persistence/typeorm/feature/TypeOrmRepository.ts.ejs'),
+          path.join(dirs.infraDir, `TypeOrm${entity.pascalCase}Repository.ts`),
+          { entity }
+        )
 
-				await renderTemplate(
-					path.join(templatesDir, 'infrastructure/index.ts.ejs'),
-					path.join(dirs.infraDir, 'index.ts'),
-					{ entity }
-				)
+        await renderTemplate(
+          path.join(templatesDir, 'infrastructure/persistence/typeorm/feature/index.ts.ejs'),
+          path.join(dirs.infraDir, 'index.ts'),
+          { entity }
+        )
 
 				infraSpinner.succeed(chalk.green('Infrastructure layer generated successfully'))
 			} catch (error) {
@@ -284,7 +395,7 @@ export async function generateCommand(entityName: string, options: GenerateOptio
 		}
 
 		// Application layer
-		if (!options.skipApplication) {
+		if (generateApplication) {
 			const appSpinner = ora('Generating application layer...').start()
 			try {
 				await renderTemplate(

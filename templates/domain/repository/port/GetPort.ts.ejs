@@ -1,5 +1,4 @@
-import { Id } from "@core/common/type";
+import { GetEntityRepositoryPort } from "@core/common/repository";
+import { <%= entity.pascalCase %> } from "@core/domain/<%= entity.kebabCase %>/entity";
 
-export type Get<%= entity.pascalCase %>RepositoryPort = {
-  id: Id;
-}; 
+export type Get<%= entity.pascalCase %>RepositoryPort = GetEntityRepositoryPort<<%= entity.pascalCase %>>; 

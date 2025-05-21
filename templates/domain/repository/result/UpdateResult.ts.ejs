@@ -1,3 +1,4 @@
 import { <%= entity.pascalCase %> } from "@core/domain/<%= entity.kebabCase %>/entity";
+import { UpdateEntityRepositoryResult } from "@core/common/repository";
 
-export type Update<%= entity.pascalCase %>RepositoryResult = Promise<<%= entity.pascalCase %> | null>; 
+export type Update<%= entity.pascalCase %>RepositoryResult = UpdateEntityRepositoryResult;

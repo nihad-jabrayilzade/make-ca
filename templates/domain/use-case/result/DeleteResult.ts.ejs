@@ -1,3 +1,4 @@
+import { DeleteEntityUseCaseResult } from '@core/common/use-case';
 import { <%= entity.pascalCase %> } from "@core/domain/<%= entity.kebabCase %>/entity";
 
-export type Delete<%= entity.pascalCase %>UseCaseResult = Promise<<%= entity.pascalCase %> | null>; 
+export type Delete<%= entity.pascalCase %>UseCaseResult = DeleteEntityUseCaseResult<<%= entity.pascalCase %>> 

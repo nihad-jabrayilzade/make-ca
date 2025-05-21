@@ -1,5 +1,5 @@
 import { <%= entity.pascalCase %>Repository } from "@core/domain/<%= entity.kebabCase %>/repository";
-import { Get<%= entity.pluralPascalCase %>UseCasePort, Get<%= entity.pluralPascalCase %>UseCaseResult, Get<%= entity.pluralPascalCase %>UseCase } from "@core/domain/<%= entity.kebabCase %>/use-case";
+import { Get<%= entity.pluralPascalCase %>UseCase, Get<%= entity.pluralPascalCase %>UseCaseResult, Get<%= entity.pluralPascalCase %>UseCasePort } from "@core/domain/<%= entity.kebabCase %>/use-case";
 
 export class Get<%= entity.pluralPascalCase %>Service implements Get<%= entity.pluralPascalCase %>UseCase {
   constructor(private readonly <%= entity.camelCase %>Repository: <%= entity.pascalCase %>Repository) {}

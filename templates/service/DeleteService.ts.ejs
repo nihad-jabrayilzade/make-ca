@@ -1,19 +1,19 @@
+import { Assert } from "@core/common/util/assert";
 import { <%= entity.pascalCase %>Repository } from "@core/domain/<%= entity.kebabCase %>/repository";
-import { Delete<%= entity.pascalCase %>UseCasePort, Delete<%= entity.pascalCase %>UseCaseResult, Delete<%= entity.pascalCase %>UseCase } from "@core/domain/<%= entity.kebabCase %>/use-case";
+import { Delete<%= entity.pascalCase %>UseCase, Delete<%= entity.pascalCase %>UseCaseResult, Delete<%= entity.pascalCase %>UseCasePort } from "@core/domain/<%= entity.kebabCase %>/use-case";
 import { <%= entity.pascalCase %>NotFoundException } from "@core/domain/<%= entity.kebabCase %>/exception";
 
 export class Delete<%= entity.pascalCase %>Service implements Delete<%= entity.pascalCase %>UseCase {
   constructor(private readonly <%= entity.camelCase %>Repository: <%= entity.pascalCase %>Repository) {}
 
   public async execute(port: Delete<%= entity.pascalCase %>UseCasePort): Delete<%= entity.pascalCase %>UseCaseResult {
-    const exists = await this.<%= entity.camelCase %>Repository.exists({ id: port.id });
-    
-    if (!exists) {
-      throw new <%= entity.pascalCase %>NotFoundException();
-    }
+    const <%= entity.camelCase %> = await this.<%= entity.camelCase %>Repository.get<%= entity.pascalCase %>({ id: port.id });
 
-    const result = await this.<%= entity.camelCase %>Repository.delete<%= entity.pascalCase %>(port);
+    Assert.notNull(<%= entity.camelCase %>, new <%= entity.pascalCase %>NotFoundException(port.id));
 
-    return result;
+    <%= entity.camelCase %>.delete();
+    await this.<%= entity.camelCase %>Repository.delete<%= entity.pascalCase %>(<%= entity.camelCase %>);
+
+    return <%= entity.camelCase %>;
   }
 } 

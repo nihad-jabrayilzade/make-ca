@@ -1,1 +1,8 @@
-export * from "./<%= entity.pascalCase %>DITokens"; 
+export const <%= entity.pascalCase %>DITokens = {
+  <%= entity.pascalCase %>Repository: Symbol.for("<%= entity.pascalCase %>Repository"),
+  Get<%= entity.pascalCase %>UseCase: Symbol.for("Get<%= entity.pascalCase %>UseCase"),
+  Get<%= entity.pluralPascalCase %>UseCase: Symbol.for("Get<%= entity.pluralPascalCase %>UseCase"),
+  Create<%= entity.pascalCase %>UseCase: Symbol.for("Create<%= entity.pascalCase %>UseCase"),
+  Update<%= entity.pascalCase %>UseCase: Symbol.for("Update<%= entity.pascalCase %>UseCase"),
+  Delete<%= entity.pascalCase %>UseCase: Symbol.for("Delete<%= entity.pascalCase %>UseCase"),
+}; 

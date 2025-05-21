@@ -1,6 +1,4 @@
-import { Id } from "@core/common/type";
+import { UpdateEntityRepositoryPort } from "@core/common/repository";
+import { <%= entity.pascalCase %> } from "@core/domain/<%= entity.kebabCase %>/entity";
 
-export type Update<%= entity.pascalCase %>RepositoryPort = {
-  id: Id;
-  // Add specific update fields here
-}; 
+export type Update<%= entity.pascalCase %>RepositoryPort = UpdateEntityRepositoryPort<<%= entity.pascalCase %>>; 

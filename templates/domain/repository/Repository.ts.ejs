@@ -1,0 +1,23 @@
+import {
+  Get<%= entity.pascalCase %>RepositoryPort,
+  Get<%= entity.pascalCase %>RepositoryResult,
+  Get<%= entity.pluralPascalCase %>RepositoryPort,
+  Get<%= entity.pluralPascalCase %>RepositoryResult,
+  Create<%= entity.pascalCase %>RepositoryPort,
+  Create<%= entity.pascalCase %>RepositoryResult,
+  Update<%= entity.pascalCase %>RepositoryPort,
+  Update<%= entity.pascalCase %>RepositoryResult,
+  Delete<%= entity.pascalCase %>RepositoryPort,
+  Delete<%= entity.pascalCase %>RepositoryResult,
+  Is<%= entity.pascalCase %>ExistsRepositoryPort,
+  Is<%= entity.pascalCase %>ExistsRepositoryResult,
+} from "@core/domain/<%= entity.kebabCase %>/repository";
+
+export interface <%= entity.pascalCase %>Repository {
+  get<%= entity.pascalCase %>(port: Get<%= entity.pascalCase %>RepositoryPort): Get<%= entity.pascalCase %>RepositoryResult;
+  get<%= entity.pluralPascalCase %>(port: Get<%= entity.pluralPascalCase %>RepositoryPort): Get<%= entity.pluralPascalCase %>RepositoryResult;
+  create<%= entity.pascalCase %>(port: Create<%= entity.pascalCase %>RepositoryPort): Create<%= entity.pascalCase %>RepositoryResult;
+  update<%= entity.pascalCase %>(port: Update<%= entity.pascalCase %>RepositoryPort): Update<%= entity.pascalCase %>RepositoryResult;
+  delete<%= entity.pascalCase %>(port: Delete<%= entity.pascalCase %>RepositoryPort): Delete<%= entity.pascalCase %>RepositoryResult;
+  exists(port: Is<%= entity.pascalCase %>ExistsRepositoryPort): Is<%= entity.pascalCase %>ExistsRepositoryResult;
+}

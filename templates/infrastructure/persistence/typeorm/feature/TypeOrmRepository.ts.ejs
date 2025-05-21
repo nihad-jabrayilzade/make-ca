@@ -1,0 +1,106 @@
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository, EntityNotFoundError } from "typeorm";
+import { <%= entity.pascalCase %>NotFoundException } from "@core/domain/<%= entity.kebabCase %>/exception";
+import { <%= entity.pascalCase %>Repository } from "@core/domain/<%= entity.kebabCase %>/repository/<%= entity.pascalCase %>Repository";
+import {
+  Get<%= entity.pascalCase %>RepositoryPort,
+  Get<%= entity.pascalCase %>RepositoryResult,
+  Get<%= entity.pluralPascalCase %>RepositoryPort,
+  Get<%= entity.pluralPascalCase %>RepositoryResult,
+  Create<%= entity.pascalCase %>RepositoryPort,
+  Create<%= entity.pascalCase %>RepositoryResult,
+  Update<%= entity.pascalCase %>RepositoryPort,
+  Update<%= entity.pascalCase %>RepositoryResult,
+  Delete<%= entity.pascalCase %>RepositoryPort,
+  Delete<%= entity.pascalCase %>RepositoryResult,
+  Is<%= entity.pascalCase %>ExistsRepositoryPort,
+  Is<%= entity.pascalCase %>ExistsRepositoryResult,
+} from "@core/domain/<%= entity.kebabCase %>/repository";
+import { TypeOrm<%= entity.pascalCase %>, TypeOrm<%= entity.pascalCase %>Mapper } from "@infrastructure/persistence/typeorm/feature/<%= entity.kebabCase %>";
+
+@Injectable()
+export class TypeOrm<%= entity.pascalCase %>Repository implements <%= entity.pascalCase %>Repository {
+  private readonly <%= entity.camelCase %>Mapper: TypeOrm<%= entity.pascalCase %>Mapper = new TypeOrm<%= entity.pascalCase %>Mapper();
+
+  constructor(@InjectRepository(TypeOrm<%= entity.pascalCase %>) private <%= entity.camelCase %>Repository: Repository<TypeOrm<%= entity.pascalCase %>>) {}
+
+  public async get<%= entity.pascalCase %>(port: Get<%= entity.pascalCase %>RepositoryPort): Get<%= entity.pascalCase %>RepositoryResult {
+    try {
+      const typeOrm<%= entity.pascalCase %>: TypeOrm<%= entity.pascalCase %> = await this.<%= entity.camelCase %>Repository.createQueryBuilder("<%= entity.camelCase %>")
+        .where("<%= entity.camelCase %>.id = :id", { id: port.id })
+        .withDeleted()
+        .getOneOrFail();
+
+      return this.<%= entity.camelCase %>Mapper.toDomainEntity(typeOrm<%= entity.pascalCase %>);
+    } catch (error) {
+      if (error instanceof EntityNotFoundError) {
+        throw new <%= entity.pascalCase %>NotFoundException(port.id);
+      }
+
+      throw error;
+    }
+  }
+
+  public async get<%= entity.pluralPascalCase %>(port: Get<%= entity.pluralPascalCase %>RepositoryPort): Get<%= entity.pluralPascalCase %>RepositoryResult {
+    try {
+      const [typeOrm<%= entity.pluralPascalCase %>, totalItems]: [TypeOrm<%= entity.pascalCase %>[], number] = await this.<%= entity.camelCase %>Repository
+        .createQueryBuilder("<%= entity.camelCase %>")
+        .take(port.limit)
+        .skip(port.offset)
+        .getManyAndCount();
+
+      const <%= entity.pluralCamelCase %> = this.<%= entity.camelCase %>Mapper.toDomainEntities(typeOrm<%= entity.pluralPascalCase %>);
+
+      return {
+        items: <%= entity.pluralCamelCase %>,
+        totalItems,
+      };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async create<%= entity.pascalCase %>(port: Create<%= entity.pascalCase %>RepositoryPort): Create<%= entity.pascalCase %>RepositoryResult {
+    try {
+      const insertResult = await this.<%= entity.camelCase %>Repository.insert(port);
+
+      return {
+        id: insertResult.generatedMaps[0].id,
+        createdAt: insertResult.generatedMaps[0].createdAt,
+      };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async update<%= entity.pascalCase %>(port: Update<%= entity.pascalCase %>RepositoryPort): Update<%= entity.pascalCase %>RepositoryResult {
+    const typeOrm<%= entity.pascalCase %> = this.<%= entity.camelCase %>Mapper.toOrmEntity(port);
+
+    try {
+      await this.<%= entity.camelCase %>Repository.update(port.id, typeOrm<%= entity.pascalCase %>);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async delete<%= entity.pascalCase %>(port: Delete<%= entity.pascalCase %>RepositoryPort): Delete<%= entity.pascalCase %>RepositoryResult {
+    try {
+      const typeOrm<%= entity.pascalCase %> = this.<%= entity.camelCase %>Mapper.toOrmEntity(port);
+
+      await this.<%= entity.camelCase %>Repository.update(port.id, typeOrm<%= entity.pascalCase %>);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async exists(port: Is<%= entity.pascalCase %>ExistsRepositoryPort): Is<%= entity.pascalCase %>ExistsRepositoryResult {
+    try {
+      const exists: boolean = await this.<%= entity.camelCase %>Repository.existsBy(port);
+
+      return exists;
+    } catch (error) {
+      throw error;
+    }
+  }
+} 

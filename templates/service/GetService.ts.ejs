@@ -1,6 +1,5 @@
 import { <%= entity.pascalCase %>Repository } from "@core/domain/<%= entity.kebabCase %>/repository";
 import { Get<%= entity.pascalCase %>UseCasePort, Get<%= entity.pascalCase %>UseCaseResult, Get<%= entity.pascalCase %>UseCase } from "@core/domain/<%= entity.kebabCase %>/use-case";
-import { <%= entity.pascalCase %>NotFoundException } from "@core/domain/<%= entity.kebabCase %>/exception";
 
 export class Get<%= entity.pascalCase %>Service implements Get<%= entity.pascalCase %>UseCase {
   constructor(private readonly <%= entity.camelCase %>Repository: <%= entity.pascalCase %>Repository) {}

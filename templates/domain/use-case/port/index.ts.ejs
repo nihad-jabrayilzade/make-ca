@@ -1,5 +1,5 @@
-export * from "./Get<%= entity.pascalCase %>UseCasePort";
-export * from "./Get<%= entity.pluralPascalCase %>UseCasePort";
-export * from "./Create<%= entity.pascalCase %>UseCasePort";
-export * from "./Update<%= entity.pascalCase %>UseCasePort";
-export * from "./Delete<%= entity.pascalCase %>UseCasePort"; 
+export { Get<%= entity.pascalCase %>UseCasePort } from "@core/domain/<%= entity.kebabCase %>/use-case/port/Get<%= entity.pascalCase %>UseCasePort";
+export { Get<%= entity.pluralPascalCase %>UseCasePort } from "@core/domain/<%= entity.kebabCase %>/use-case/port/Get<%= entity.pluralPascalCase %>UseCasePort";
+export { Create<%= entity.pascalCase %>UseCasePort } from "@core/domain/<%= entity.kebabCase %>/use-case/port/Create<%= entity.pascalCase %>UseCasePort";
+export { Update<%= entity.pascalCase %>UseCasePort } from "@core/domain/<%= entity.kebabCase %>/use-case/port/Update<%= entity.pascalCase %>UseCasePort";
+export { Delete<%= entity.pascalCase %>UseCasePort } from "@core/domain/<%= entity.kebabCase %>/use-case/port/Delete<%= entity.pascalCase %>UseCasePort"; 

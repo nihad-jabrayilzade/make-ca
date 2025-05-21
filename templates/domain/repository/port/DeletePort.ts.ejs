@@ -1,5 +1,4 @@
-import { Id } from "@core/common/type";
+import { DeleteEntityRepositoryPort } from "@core/common/repository";
+import { <%= entity.pascalCase %> } from "@core/domain/<%= entity.kebabCase %>/entity";
 
-export type Delete<%= entity.pascalCase %>RepositoryPort = {
-  id: Id;
-}; 
+export type Delete<%= entity.pascalCase %>RepositoryPort = DeleteEntityRepositoryPort<<%= entity.pascalCase %>>; 

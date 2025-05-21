@@ -1,9 +1,8 @@
-import { DomainException } from "@core/common/exception";
+import { EntityNotFoundException } from "@core/common/exception";
+import { <%= entity.pascalCase %> } from "@core/domain/<%= entity.kebabCase %>/entity";
 
-export class <%= entity.pascalCase %>NotFoundException extends DomainException {
-  public static readonly message: string = "<%= entity.pascalCase %> not found";
-
-  public constructor() {
-    super(<%= entity.pascalCase %>NotFoundException.message);
+export class <%= entity.pascalCase %>NotFoundException extends EntityNotFoundException {
+  constructor(id: <%= entity.pascalCase %>["id"]) {
+    super(`<%= entity.pascalCase %> with id ${id} not found`);
   }
 } 

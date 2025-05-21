@@ -1,0 +1,31 @@
+import { EntityMapper } from "@core/common/mapper/EntityMapper";
+import { <%= entity.pascalCase %> } from "@core/domain/<%= entity.kebabCase %>/entity";
+import { TypeOrm<%= entity.pascalCase %> } from "@infrastructure/persistence/typeorm/feature/<%= entity.kebabCase %>";
+
+export class TypeOrm<%= entity.pascalCase %>Mapper implements EntityMapper<TypeOrm<%= entity.pascalCase %>, <%= entity.pascalCase %>> {
+  public toDomainEntity(<%= entity.camelCase %>: TypeOrm<%= entity.pascalCase %>): <%= entity.pascalCase %> {
+    return new <%= entity.pascalCase %>({
+      id: Number(<%= entity.camelCase %>.id),
+      createdAt: <%= entity.camelCase %>.createdAt,
+      updatedAt: <%= entity.camelCase %>.updatedAt,
+      deletedAt: <%= entity.camelCase %>.deletedAt,
+    });
+  }
+
+  public toDomainEntities(<%= entity.pluralCamelCase %>: TypeOrm<%= entity.pascalCase %>[]): <%= entity.pascalCase %>[] {
+    return <%= entity.pluralCamelCase %>.map((<%= entity.camelCase %>) => this.toDomainEntity(<%= entity.camelCase %>));
+  }
+
+  public toOrmEntity(<%= entity.camelCase %>: <%= entity.pascalCase %>): TypeOrm<%= entity.pascalCase %> {
+    return {
+      id: <%= entity.camelCase %>.id,
+      createdAt: <%= entity.camelCase %>.createdAt,
+      updatedAt: <%= entity.camelCase %>.updatedAt,
+      deletedAt: <%= entity.camelCase %>.deletedAt,
+    };
+  }
+
+  public toOrmEntities(<%= entity.pluralCamelCase %>: <%= entity.pascalCase %>[]): TypeOrm<%= entity.pascalCase %>[] {
+    return <%= entity.pluralCamelCase %>.map((<%= entity.camelCase %>) => this.toOrmEntity(<%= entity.camelCase %>));
+  }
+}

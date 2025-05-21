@@ -1,4 +1,3 @@
-export type Get<%= entity.pluralPascalCase %>RepositoryPort = {
-  offset: number;
-  limit: number;
-}; 
+import { GetEntitiesRepositoryPort } from "@core/common/repository";
+
+export type Get<%= entity.pluralPascalCase %>RepositoryPort = GetEntitiesRepositoryPort; 

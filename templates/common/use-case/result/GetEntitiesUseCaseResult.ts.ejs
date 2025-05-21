@@ -1,4 +1,4 @@
-export type GetEntitiesUseCaseResult<E> = {
+export type GetEntitiesUseCaseResult<E> = Promise<{
   items: E[];
   totalItems: number;
-};
+}>;

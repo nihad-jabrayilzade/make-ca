@@ -1,0 +1,8 @@
+import { EntityAlreadyExistsException } from "@core/common/exception";
+import { <%= entity.pascalCase %> } from "@core/domain/<%= entity.kebabCase %>/entity";
+
+export class <%= entity.pascalCase %>AlreadyExistsException extends EntityAlreadyExistsException {
+  constructor(id: <%= entity.pascalCase %>["id"]) {
+    super(`<%= entity.pascalCase %> with id ${id} already exists`);
+  }
+}

@@ -1,1 +1,2 @@
-export * from "./<%= entity.pascalCase %>NotFoundException"; 
+export { <%= entity.pascalCase %>NotFoundException } from "@core/domain/<%= entity.kebabCase %>/exception/<%= entity.pascalCase %>NotFoundException";
+export { <%= entity.pascalCase %>AlreadyExistsException } from "@core/domain/<%= entity.kebabCase %>/exception/<%= entity.pascalCase %>AlreadyExistsException"; 
