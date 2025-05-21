@@ -105,4 +105,4 @@ The generated project follows a clean architecture structure:
 
 ## License
 
-MIT 
+make-ca is [MIT Lincesed](https://github.com/nihad-jabrayilzade/make-ca/blob/master/LICENSE)
