@@ -1,12 +1,12 @@
 {
 	"name": "make-ca",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"license": "MIT",
 	"author": "Nihad Jabrayilzade",
 	"description": "CLI tool for generating Clean Architecture templates for NestJS+TypeORM",
 	"main": "dist/index.js",
 	"bin": {
-		"make-ca": "./dist/index.js"
+		"make-ca": "dist/index.js"
 	},
 	"files": [
 		"dist",
@@ -20,11 +20,18 @@
 		"lint": "eslint --ext .ts src/",
 		"prepare": "npm run build",
 		"prepublishOnly": "npm run lint",
-		"preview": "npm run build && npm link && cd .. && rm -rf a && make-ca init -p a && cd a && npm i && make-ca g user && code ."
+		"preview": "npm run build && npm link && cd .. && rm -rf a && make-ca init -p a && cd a && npm i && make-ca g user && code .",
+		"release:patch": "npm version patch && npm publish --access public",
+		"release:minor": "npm version minor && npm publish --access public",
+		"release:major": "npm version major && npm publish --access public",
+		"publish:github": "npm publish --access public"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/nihad-jabrayilzade/make-ca.git"
+		"url": "git+https://github.com/nihad-jabrayilzade/make-ca.git"
+	},
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com"
 	},
 	"keywords": [
 		"nestjs",
