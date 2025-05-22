@@ -1,4 +1,4 @@
-import { GetEntityRepositoryResult } from "@core/common/repository";
+import { GetEntityRepositoryResult } from "@core/shared/repository";
 import { <%= entity.pascalCase %> } from "@core/domain/<%= entity.kebabCase %>/entity";
 
 export type Get<%= entity.pascalCase %>RepositoryResult = GetEntityRepositoryResult<<%= entity.pascalCase %>>; 

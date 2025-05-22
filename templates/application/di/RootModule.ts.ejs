@@ -4,8 +4,8 @@ import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from "@nestjs/core";
 import { InfrastructureModule } from "@application/di/InfrastructureModule";
 import { ApplicationModule } from "@application/di/ApplicationModule";
 import { FeatureModule } from "@application/di/FeatureModule";
-import { RestApiResponseInterceptor } from "@application/api/rest/common/interceptor/RestApiResponseInterceptor";
-import { RestApiHttpExceptionFilter } from "@application/api/rest/common/filter/RestApiHttpExceptionFilter";
+import { RestApiResponseInterceptor } from "@application/api/rest/shared/interceptor/RestApiResponseInterceptor";
+import { RestApiHttpExceptionFilter } from "@application/api/rest/shared/filter/RestApiHttpExceptionFilter";
 
 @Module({
   providers: [

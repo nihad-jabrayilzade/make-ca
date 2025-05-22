@@ -1,5 +1,5 @@
-import { Assert } from "@core/common/util/assert";
-import { NotNullable } from "@core/common/type";
+import { Assert } from "@core/shared/util/assert";
+import { NotNullable } from "@core/shared/type";
 import { <%= entity.pascalCase %>Repository } from "@core/domain/<%= entity.kebabCase %>/repository";
 import { Create<%= entity.pascalCase %>UseCase, Create<%= entity.pascalCase %>UseCaseResult, Create<%= entity.pascalCase %>UseCasePort } from "@core/domain/<%= entity.kebabCase %>/use-case";
 import { <%= entity.pascalCase %>AlreadyExistsException } from "@core/domain/<%= entity.kebabCase %>/exception";

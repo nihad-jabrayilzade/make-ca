@@ -1,4 +1,4 @@
-import { GetEntitiesUseCaseResult } from "@core/common/use-case";
+import { GetEntitiesUseCaseResult } from "@core/shared/use-case";
 import { <%= entity.pascalCase %> } from "@core/domain/<%= entity.kebabCase %>/entity";
 
 export type Get<%= entity.pluralPascalCase %>UseCaseResult = GetEntitiesUseCaseResult<<%= entity.pascalCase %>>; 

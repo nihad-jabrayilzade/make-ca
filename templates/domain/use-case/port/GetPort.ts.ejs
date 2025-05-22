@@ -1,4 +1,4 @@
-import { GetEntityUseCasePort } from "@core/common/use-case/port";
+import { GetEntityUseCasePort } from "@core/shared/use-case/port";
 import { <%= entity.pascalCase %> } from "@core/domain/<%= entity.kebabCase %>/entity";
 
 export type Get<%= entity.pascalCase %>UseCasePort = GetEntityUseCasePort<<%= entity.pascalCase %>>; 

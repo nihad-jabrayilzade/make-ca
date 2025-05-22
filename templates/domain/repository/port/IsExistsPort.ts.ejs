@@ -1,4 +1,4 @@
-import { IsEntityExistsRepositoryPort } from "@core/common/repository";
+import { IsEntityExistsRepositoryPort } from "@core/shared/repository";
 import { <%= entity.pascalCase %> } from "@core/domain/<%= entity.kebabCase %>/entity";
 
 export type Is<%= entity.pascalCase %>ExistsRepositoryPort = IsEntityExistsRepositoryPort<<%= entity.pascalCase %>>; 

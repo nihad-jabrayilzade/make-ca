@@ -131,22 +131,22 @@ export function initializeProjectStructure(projectPath?: string): void {
 	try {
 		// Create base directory structure
 		const coreDirs = [
-			'src/core/common',
-			'src/core/common/util',
-			'src/core/common/use-case',
-			'src/core/common/type',
-			'src/core/common/repository',
-			'src/core/common/exception',
-			'src/core/common/mapper',
-			'src/core/common/constants',
+			'src/core/shared',
+			'src/core/shared/util',
+			'src/core/shared/use-case',
+			'src/core/shared/type',
+			'src/core/shared/repository',
+			'src/core/shared/exception',
+			'src/core/shared/mapper',
+			'src/core/shared/constants',
 			'src/core/domain',
 			'src/core/service',
 		]
 
 		const appDirs = [
-			'src/application/api/rest/common/filter',
-			'src/application/api/rest/common/interceptor',
-			'src/application/api/rest/common/query',
+			'src/application/api/rest/shared/filter',
+			'src/application/api/rest/shared/interceptor',
+			'src/application/api/rest/shared/query',
 			'src/application/config',
 			'src/application/di',
 			'src/application/di/feature',
@@ -163,8 +163,8 @@ export function initializeProjectStructure(projectPath?: string): void {
 			fs.ensureDirSync(path.join(basePath, dir))
 		})
 
-		// Create common utility files
-		copyCommonTemplates(basePath)
+		// Create shared utility files
+		copySharedTemplates(basePath)
 
 		// Create NestJS application files
 		createNestJSFiles(basePath, projectName)
@@ -177,12 +177,12 @@ export function initializeProjectStructure(projectPath?: string): void {
 }
 
 /**
- * Copies common template files to the project
+ * Copies shared template files to the project
  *
  * @param projectPath Path to the project root
  */
-async function copyCommonTemplates(targetPath: string): Promise<void> {
-	const commonDirs = [
+async function copySharedTemplates(targetPath: string): Promise<void> {
+	const sharedDirs = [
 		'constants',
 		'type',
 		'use-case',
@@ -198,9 +198,9 @@ async function copyCommonTemplates(targetPath: string): Promise<void> {
 		'util/checker',
 	]
 
-	for (const dir of commonDirs) {
-		const sourceDir = path.join(__dirname, '..', '..', 'templates', 'common', dir)
-		const targetDir = path.join(targetPath, 'src', 'core', 'common', dir)
+	for (const dir of sharedDirs) {
+		const sourceDir = path.join(__dirname, '..', '..', 'templates', 'shared', dir)
+		const targetDir = path.join(targetPath, 'src', 'core', 'shared', dir)
 		await fs.mkdir(targetDir, { recursive: true })
 
 		const files = await fs.readdir(sourceDir)
@@ -270,23 +270,23 @@ async function createNestJSFiles(projectPath: string, projectName: string): Prom
 			await renderTemplate(path.join(templatesDir, file.template), path.join(projectPath, file.dest), {})
 		}
 
-		// Create API common files
+		// Create API shared files
 		const apiFiles = [
 			{
-				template: 'application/api/rest/common/filter/RestApiHttpExceptionFilter.ts.ejs',
-				dest: 'src/application/api/rest/common/filter/RestApiHttpExceptionFilter.ts',
+				template: 'application/api/rest/shared/filter/RestApiHttpExceptionFilter.ts.ejs',
+				dest: 'src/application/api/rest/shared/filter/RestApiHttpExceptionFilter.ts',
 			},
 			{
-				template: 'application/api/rest/common/interceptor/RestApiResponseInterceptor.ts.ejs',
-				dest: 'src/application/api/rest/common/interceptor/RestApiResponseInterceptor.ts',
+				template: 'application/api/rest/shared/interceptor/RestApiResponseInterceptor.ts.ejs',
+				dest: 'src/application/api/rest/shared/interceptor/RestApiResponseInterceptor.ts',
 			},
 			{
-				template: 'application/api/rest/common/query/RestApiGetEntitiesQuery.ts.ejs',
-				dest: 'src/application/api/rest/common/query/RestApiGetEntitiesQuery.ts',
+				template: 'application/api/rest/shared/query/RestApiGetEntitiesQuery.ts.ejs',
+				dest: 'src/application/api/rest/shared/query/RestApiGetEntitiesQuery.ts',
 			},
 			{
-				template: 'application/api/rest/common/query/index.ts.ejs',
-				dest: 'src/application/api/rest/common/query/index.ts',
+				template: 'application/api/rest/shared/query/index.ts.ejs',
+				dest: 'src/application/api/rest/shared/query/index.ts',
 			},
 		]
 

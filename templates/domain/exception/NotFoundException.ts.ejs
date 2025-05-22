@@ -1,4 +1,4 @@
-import { EntityNotFoundException } from "@core/common/exception";
+import { EntityNotFoundException } from "@core/shared/exception";
 import { <%= entity.pascalCase %> } from "@core/domain/<%= entity.kebabCase %>/entity";
 
 export class <%= entity.pascalCase %>NotFoundException extends EntityNotFoundException {

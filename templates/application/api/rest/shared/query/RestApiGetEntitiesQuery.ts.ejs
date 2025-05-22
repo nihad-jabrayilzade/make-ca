@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Exclude, Expose, Transform } from "class-transformer";
 import { IsNumber, IsOptional, Min } from "class-validator";
-import { ENTITIES_DEFAULT_LIMIT } from "@core/common/constants";
+import { ENTITIES_DEFAULT_LIMIT } from "@core/shared/constants";
 
 @Exclude()
 export class RestApiGetEntitiesQuery {

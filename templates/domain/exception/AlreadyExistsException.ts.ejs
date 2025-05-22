@@ -1,4 +1,4 @@
-import { EntityAlreadyExistsException } from "@core/common/exception";
+import { EntityAlreadyExistsException } from "@core/shared/exception";
 import { <%= entity.pascalCase %> } from "@core/domain/<%= entity.kebabCase %>/entity";
 
 export class <%= entity.pascalCase %>AlreadyExistsException extends EntityAlreadyExistsException {

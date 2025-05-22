@@ -79,6 +79,10 @@ src/
 ├── core/
 │   ├── domain/         # Business logic, entities, interfaces
 │   │   └── user/       # Domain layer for 'user' entity
+│   ├── shared/         # Shared code across entities
+│   │   ├── type/       # Common types
+│   │   ├── exception/  # Base exceptions
+│   │   └── util/       # Utilities
 │   └── service/        # Use case implementations
 │       └── user/       # Service layer for 'user' entity
 ├── infrastructure/
@@ -89,6 +93,7 @@ src/
 └── application/
     ├── api/
     │   └── rest/       # REST API controllers
+    │       ├── shared/ # Shared API components
     │       └── user/   # Controllers for 'user' entity
     └── di/             # Dependency injection modules
         └── feature/
