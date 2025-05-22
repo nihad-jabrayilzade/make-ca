@@ -2,18 +2,12 @@ import { camelCase, pascalCase, paramCase } from 'change-case'
 const pluralize = require('pluralize')
 
 export interface EntityNameFormats {
-	// Base forms
 	kebabCase: string // e.g., "user-profile"
 	camelCase: string // e.g., "userProfile"
 	pascalCase: string // e.g., "UserProfile"
-
-	// Pluralized forms
 	pluralKebabCase: string // e.g., "user-profiles"
 	pluralCamelCase: string // e.g., "userProfiles"
 	pluralPascalCase: string // e.g., "UserProfiles"
-
-	// For database tables
-	tableName: string // e.g., "UserProfilesTbl"
 }
 
 /**
@@ -23,20 +17,14 @@ export interface EntityNameFormats {
  * @returns Object with all variations of the entity name
  */
 export function formatEntityName(entityName: string): EntityNameFormats {
-	// Ensure input is kebab-case
 	const kebabCase = paramCase(entityName)
 
-	// Generate base forms
 	const camelCaseEntity = camelCase(kebabCase)
 	const pascalCaseEntity = pascalCase(kebabCase)
 
-	// Generate pluralized forms
 	const pluralKebabCase = pluralize(kebabCase)
 	const pluralCamelCase = pluralize(camelCaseEntity)
 	const pluralPascalCase = pluralize(pascalCaseEntity)
-
-	// Generate table name
-	const tableName = `${pluralPascalCase}Tbl`
 
 	return {
 		kebabCase,
@@ -45,6 +33,5 @@ export function formatEntityName(entityName: string): EntityNameFormats {
 		pluralKebabCase,
 		pluralCamelCase,
 		pluralPascalCase,
-		tableName,
 	}
 }

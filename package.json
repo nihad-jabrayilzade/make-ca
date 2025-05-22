@@ -3,7 +3,7 @@
 	"version": "1.0.9",
 	"license": "MIT",
 	"author": "Nihad Jabrayilzade",
-	"description": "CLI tool for generating Clean Architecture templates for NestJS+TypeORM",
+	"description": "CLI tool for generating Clean Architecture templates for NestJS & TypeORM",
 	"main": "dist/index.js",
 	"bin": {
 		"make-ca": "dist/index.js"

@@ -24,7 +24,8 @@
 		"strict": true,
 		"strictPropertyInitialization": false,
 		"allowJs": false,
-		"moduleResolution": "node"
+		"moduleResolution": "node",
+		"resolveJsonModule": true
 	},
 	"include": ["src/**/*"],
 	"exclude": ["node_modules", "dist", "my-clean-project"]

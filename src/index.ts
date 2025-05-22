@@ -2,16 +2,14 @@
 
 import { Command } from 'commander'
 import chalk from 'chalk'
-import { initCommand } from './commands/init'
-import { generateCommand } from './commands/generate'
+import { init } from './commands/init'
+import { generate } from './commands/generate'
 import { validateEntityName } from './utils/validation'
+import { name, version, description } from '../package.json'
 
 const program = new Command()
 
-program
-	.name('make-ca')
-	.description('CLI tool for generating Clean Architecture templates for NestJS+TypeORM')
-	.version('1.0.0')
+program.name(name).description(description).version(version)
 
 // Initialize project command
 program
@@ -19,7 +17,7 @@ program
 	.description('Initialize a new clean architecture project')
 	.option('-p, --path <path>', 'Path where the project should be initialized (defaults to current directory)')
 	.action(options => {
-		initCommand(options.path)
+		init(options.path)
 	})
 
 // Generate entity command
@@ -38,7 +36,7 @@ program
 
 		try {
 			validateEntityName(entityName)
-			generateCommand(entityName, options)
+			generate(entityName, options)
 		} catch (error) {
 			if (error instanceof Error) {
 				console.error(chalk.red(`Error: ${error.message}`))

@@ -20,7 +20,7 @@ interface GenerateOptions {
  * @param entityName Entity name in kebab-case
  * @param options Command options
  */
-export async function generateCommand(entityName: string, options: GenerateOptions): Promise<void> {
+export async function generate(entityName: string, options: GenerateOptions): Promise<void> {
 	const spinner = ora('Starting entity generation...').start()
 
 	try {
