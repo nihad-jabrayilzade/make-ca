@@ -363,29 +363,29 @@ export async function generateCommand(entityName: string, options: GenerateOptio
 		if (generateInfrastructure) {
 			const infraSpinner = ora('Generating infrastructure layer...').start()
 			try {
-        await renderTemplate(
-          path.join(templatesDir, 'infrastructure/persistence/typeorm/feature/TypeOrmEntity.ts.ejs'),
-          path.join(dirs.infraDir, `TypeOrm${entity.pascalCase}.entity.ts`),
-          { entity }
-        )
+				await renderTemplate(
+					path.join(templatesDir, 'infrastructure/persistence/typeorm/feature/TypeOrmEntity.ts.ejs'),
+					path.join(dirs.infraDir, `TypeOrm${entity.pascalCase}.entity.ts`),
+					{ entity }
+				)
 
-        await renderTemplate(
-          path.join(templatesDir, 'infrastructure/persistence/typeorm/feature/TypeOrmMapper.ts.ejs'),
-          path.join(dirs.infraDir, `TypeOrm${entity.pascalCase}Mapper.ts`),
-          { entity }
-        )
+				await renderTemplate(
+					path.join(templatesDir, 'infrastructure/persistence/typeorm/feature/TypeOrmMapper.ts.ejs'),
+					path.join(dirs.infraDir, `TypeOrm${entity.pascalCase}Mapper.ts`),
+					{ entity }
+				)
 
-        await renderTemplate(
-          path.join(templatesDir, 'infrastructure/persistence/typeorm/feature/TypeOrmRepository.ts.ejs'),
-          path.join(dirs.infraDir, `TypeOrm${entity.pascalCase}Repository.ts`),
-          { entity }
-        )
+				await renderTemplate(
+					path.join(templatesDir, 'infrastructure/persistence/typeorm/feature/TypeOrmRepository.ts.ejs'),
+					path.join(dirs.infraDir, `TypeOrm${entity.pascalCase}Repository.ts`),
+					{ entity }
+				)
 
-        await renderTemplate(
-          path.join(templatesDir, 'infrastructure/persistence/typeorm/feature/index.ts.ejs'),
-          path.join(dirs.infraDir, 'index.ts'),
-          { entity }
-        )
+				await renderTemplate(
+					path.join(templatesDir, 'infrastructure/persistence/typeorm/feature/index.ts.ejs'),
+					path.join(dirs.infraDir, 'index.ts'),
+					{ entity }
+				)
 
 				infraSpinner.succeed(chalk.green('Infrastructure layer generated successfully'))
 			} catch (error) {
@@ -405,26 +405,45 @@ export async function generateCommand(entityName: string, options: GenerateOptio
 				)
 
 				await renderTemplate(
-					path.join(templatesDir, 'application/documentation/CreateBody.ts.ejs'),
-					path.join(dirs.appDir, 'documentation', `RestApiCreate${entity.pascalCase}Body.ts`),
+					path.join(templatesDir, 'application/documentation/body/RestApiCreateBody.ts.ejs'),
+					path.join(dirs.appDir, 'documentation', 'body', `RestApiCreate${entity.pascalCase}Body.ts`),
 					{ entity }
 				)
 
 				await renderTemplate(
-					path.join(templatesDir, 'application/documentation/UpdateBody.ts.ejs'),
-					path.join(dirs.appDir, 'documentation', `RestApiUpdate${entity.pascalCase}Body.ts`),
+					path.join(templatesDir, 'application/documentation/body/RestApiUpdateBody.ts.ejs'),
+					path.join(dirs.appDir, 'documentation', 'body', `RestApiUpdate${entity.pascalCase}Body.ts`),
 					{ entity }
 				)
 
 				await renderTemplate(
-					path.join(templatesDir, 'application/documentation/GetQuery.ts.ejs'),
-					path.join(dirs.appDir, 'documentation', `RestApiGet${entity.pluralPascalCase}Query.ts`),
+					path.join(templatesDir, 'application/documentation/body/index.ts.ejs'),
+					path.join(dirs.appDir, 'documentation', 'body', 'index.ts'),
+					{ entity }
+				)
+
+				await renderTemplate(
+					path.join(templatesDir, 'application/documentation/query/RestApiGetQuery.ts.ejs'),
+					path.join(dirs.appDir, 'documentation', 'query', `RestApiGet${entity.pluralPascalCase}Query.ts`),
+					{ entity }
+				)
+
+				await renderTemplate(
+					path.join(templatesDir, 'application/documentation/query/index.ts.ejs'),
+					path.join(dirs.appDir, 'documentation', 'query', 'index.ts'),
 					{ entity }
 				)
 
 				await renderTemplate(
 					path.join(templatesDir, 'application/documentation/index.ts.ejs'),
 					path.join(dirs.appDir, 'documentation', 'index.ts'),
+					{ entity }
+				)
+
+				// Entity module for DI
+				await renderTemplate(
+					path.join(templatesDir, 'application/di/feature/EntityModule.ts.ejs'),
+					path.join(dirs.diFeatureDir, `${entity.pascalCase}Module.ts`),
 					{ entity }
 				)
 

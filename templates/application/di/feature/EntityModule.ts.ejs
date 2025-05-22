@@ -1,0 +1,53 @@
+import { Global, Module } from "@nestjs/common";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { TypeOrm<%= entity.pascalCase %>Repository, TypeOrm<%= entity.pascalCase %> } from "@infrastructure/persistence/typeorm/feature/<%= entity.kebabCase %>";
+import { <%= entity.pascalCase %>Controller } from "@application/api/rest/<%= entity.kebabCase %>/controller/<%= entity.pascalCase %>Controller";
+import { <%= entity.pascalCase %>DITokens } from "@core/domain/<%= entity.kebabCase %>/di";
+import { <%= entity.pascalCase %>Repository } from "@core/domain/<%= entity.kebabCase %>/repository";
+import { Get<%= entity.pascalCase %>Service, Get<%= entity.pluralPascalCase %>Service, Create<%= entity.pascalCase %>Service, Update<%= entity.pascalCase %>Service, Delete<%= entity.pascalCase %>Service } from "@core/service/<%= entity.kebabCase %>";
+
+@Global()
+@Module({
+  imports: [TypeOrmModule.forFeature([TypeOrm<%= entity.pascalCase %>])],
+  controllers: [<%= entity.pascalCase %>Controller],
+  providers: [
+    {
+      provide: <%= entity.pascalCase %>DITokens.<%= entity.pascalCase %>Repository,
+      useClass: TypeOrm<%= entity.pascalCase %>Repository,
+    },
+    {
+      provide: <%= entity.pascalCase %>DITokens.Get<%= entity.pascalCase %>UseCase,
+      useFactory: (<%= entity.camelCase %>Repository: <%= entity.pascalCase %>Repository) => new Get<%= entity.pascalCase %>Service(<%= entity.camelCase %>Repository),
+      inject: [<%= entity.pascalCase %>DITokens.<%= entity.pascalCase %>Repository],
+    },
+    {
+      provide: <%= entity.pascalCase %>DITokens.Get<%= entity.pluralPascalCase %>UseCase,
+      useFactory: (<%= entity.camelCase %>Repository: <%= entity.pascalCase %>Repository) => new Get<%= entity.pluralPascalCase %>Service(<%= entity.camelCase %>Repository),
+      inject: [<%= entity.pascalCase %>DITokens.<%= entity.pascalCase %>Repository],
+    },
+    {
+      provide: <%= entity.pascalCase %>DITokens.Create<%= entity.pascalCase %>UseCase,
+      useFactory: (<%= entity.camelCase %>Repository: <%= entity.pascalCase %>Repository) => new Create<%= entity.pascalCase %>Service(<%= entity.camelCase %>Repository),
+      inject: [<%= entity.pascalCase %>DITokens.<%= entity.pascalCase %>Repository],
+    },
+    {
+      provide: <%= entity.pascalCase %>DITokens.Update<%= entity.pascalCase %>UseCase,
+      useFactory: (<%= entity.camelCase %>Repository: <%= entity.pascalCase %>Repository) => new Update<%= entity.pascalCase %>Service(<%= entity.camelCase %>Repository),
+      inject: [<%= entity.pascalCase %>DITokens.<%= entity.pascalCase %>Repository],
+    },
+    {
+      provide: <%= entity.pascalCase %>DITokens.Delete<%= entity.pascalCase %>UseCase,
+      useFactory: (<%= entity.camelCase %>Repository: <%= entity.pascalCase %>Repository) => new Delete<%= entity.pascalCase %>Service(<%= entity.camelCase %>Repository),
+      inject: [<%= entity.pascalCase %>DITokens.<%= entity.pascalCase %>Repository],
+    },
+  ],
+  exports: [
+    <%= entity.pascalCase %>DITokens.<%= entity.pascalCase %>Repository,
+    <%= entity.pascalCase %>DITokens.Get<%= entity.pascalCase %>UseCase,
+    <%= entity.pascalCase %>DITokens.Get<%= entity.pluralPascalCase %>UseCase,
+    <%= entity.pascalCase %>DITokens.Create<%= entity.pascalCase %>UseCase,
+    <%= entity.pascalCase %>DITokens.Update<%= entity.pascalCase %>UseCase,
+    <%= entity.pascalCase %>DITokens.Delete<%= entity.pascalCase %>UseCase,
+  ],
+})
+export class <%= entity.pascalCase %>Module {} 
