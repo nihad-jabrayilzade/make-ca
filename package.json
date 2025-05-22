@@ -23,8 +23,7 @@
 		"preview": "npm run build && npm link && cd .. && rm -rf a && make-ca init -p a && cd a && npm i && make-ca g user && code .",
 		"release:patch": "npm version patch && npm publish --access public",
 		"release:minor": "npm version minor && npm publish --access public",
-		"release:major": "npm version major && npm publish --access public",
-		"publish:github": "npm publish --registry=https://npm.pkg.github.com --access public"
+		"release:major": "npm version major && npm publish --access public"
 	},
 	"repository": {
 		"type": "git",
