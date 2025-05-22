@@ -1,108 +1,113 @@
 # make-ca
 
-A CLI tool for generating Clean Architecture templates for NestJS+TypeORM projects.
+A powerful CLI tool that generates a complete Clean Architecture boilerplate for NestJS projects with TypeORM integration. Designed to accelerate your development workflow by automating the creation of properly structured TypeScript code following Clean Architecture principles.
 
-## Usage
+## What is Clean Architecture?
 
-You can use this tool directly with npx without installing it:
+Clean Architecture is a software design philosophy that separates concerns into distinct layers, making your codebase more maintainable, testable, and adaptable to change. The layers include:
 
-```bash
-# Initialize a new project
-npx make-ca init -p my-new-project
+- **Domain Layer**: Contains business logic, entities, and interfaces
+- **Application Layer**: Orchestrates the flow of data between domain and infrastructure
+- **Infrastructure Layer**: Handles external concerns like databases, frameworks, and external services
 
-# Generate an entity in your project
-npx make-ca generate user -p my-new-project
-```
+## Features
+
+- **Project Scaffolding**: Initialize a complete NestJS project with proper Clean Architecture structure
+- **Entity Generation**: Create fully-featured entities with all necessary layers:
+  - Domain layer (entities, repositories, use cases, exceptions)
+  - Service layer (use case implementations)
+  - Infrastructure layer (TypeORM entities, mappers, repositories)
+  - Application layer (controllers, DTOs, modules)
+- **Selective Generation**: Skip specific layers based on your needs
+- **Convention Enforcement**: Follows Clean Architecture best practices
+- **TypeORM Integration**: Built-in database access patterns
+- **Dependency Injection**: Proper DI setup with NestJS modules
+- **API Documentation**: Auto-generated Swagger endpoints
+- **Type Safety**: Fully typed TypeScript implementation
 
 ## Installation
-
-If you prefer to install the package globally:
 
 ```bash
 # Install globally
 npm install -g make-ca
 
-# Then use without npx prefix
-make-ca init -p my-new-project
-make-ca generate user -p my-new-project
+# Or use directly with npx
+npx make-ca <command>
 ```
 
-## Commands
+## Quick Start
 
 ### Initialize a new project
 
 ```bash
-# Using npx
-npx make-ca init -p ./my-new-project
+# Create a new project
+npx make-ca init -p my-clean-app
 
-# Or if installed globally
-make-ca init -p ./my-new-project
-
-# You can also initialize in the current directory
+# Or initialize in the current directory
 npx make-ca init
 ```
-
-This command initializes a new clean architecture project structure.
 
 ### Generate an entity
 
 ```bash
-# Using npx
-npx make-ca generate user -p ./my-project
-
-# Or if installed globally
-make-ca generate user -p ./my-project
+# Generate a complete entity with all layers
+npx make-ca generate user -p my-clean-app
 
 # Generate in the current directory
-npx make-ca generate user
+npx make-ca generate product
 ```
 
-This command generates all the layers (domain, service, infrastructure, application) for the specified entity.
-
-### Generate with selective layers
-
-You can skip specific layers using the following options:
+### Selective Generation
 
 ```bash
-# Skip domain layer
-npx make-ca generate user --skip-domain
+# Skip specific layers
+npx make-ca generate order --skip-domain
+npx make-ca generate customer --skip-infrastructure
+npx make-ca generate category --skip-application
 
-# Skip infrastructure layer
-npx make-ca generate user --skip-infrastructure
+# Generate only specific layers
+npx make-ca generate invoice --only-domain
+npx make-ca generate payment --only-infrastructure
+```
 
-# Skip application layer
-npx make-ca generate user --skip-application
+## Project Structure
 
-# Skip multiple layers
-npx make-ca generate user --skip-domain --skip-application
+The generated project follows a clean architecture pattern:
 
-# Combine with path option
-npx make-ca generate user --skip-domain -p ./my-project
+```
+src/
+├── core/
+│   ├── domain/         # Business logic, entities, interfaces
+│   │   └── user/       # Domain layer for 'user' entity
+│   └── service/        # Use case implementations
+│       └── user/       # Service layer for 'user' entity
+├── infrastructure/
+│   └── persistence/
+│       └── typeorm/    # TypeORM implementation
+│           └── feature/
+│               └── user/ # TypeORM entities for 'user'
+└── application/
+    ├── api/
+    │   └── rest/       # REST API controllers
+    │       └── user/   # Controllers for 'user' entity
+    └── di/             # Dependency injection modules
+        └── feature/
+            └── UserModule.ts # DI module for 'user' entity
 ```
 
 ## Entity Naming Rules
 
-- Entity names must be in kebab-case (e.g., user, user-profile, blog-post)
+- Entity names must be in kebab-case (e.g., `user`, `blog-post`)
 - Must be at least 3 characters long
 - Must start with a letter
-- Must only contain letters, numbers, and hyphens
-- No spaces or special characters
-- Cannot be a reserved word
+- Can only contain letters, numbers, and hyphens
 
-## Project Structure
+## Important Note
 
-The generated project follows a clean architecture structure:
+After generating a project, you need to create a `config.yaml` file based on the provided `config.yaml.example` template to ensure your project works correctly. 
 
-- **Core Layer**
-  - Domain: Entities, repositories, use cases, exceptions
-  - Service: Use case implementations
-
-- **Infrastructure Layer**
-  - Persistence: TypeORM entities, mappers, repositories
-
-- **Application Layer**
-  - API: REST controllers, documentation
+Once your project is running, you can test the API endpoints through Swagger documentation at `/docs`.
 
 ## License
 
-make-ca is [MIT Lincesed](https://github.com/nihad-jabrayilzade/make-ca/blob/master/LICENSE)
+make-ca is [MIT Licensed](https://github.com/nihad-jabrayilzade/make-ca/blob/master/LICENSE)
