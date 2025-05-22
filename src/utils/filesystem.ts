@@ -1,9 +1,10 @@
+import { EntityNameFormats } from '../types'
+
 const fs = require('fs-extra')
 const path = require('path')
 const chalk = require('chalk')
 const ora = require('ora')
 const ejs = require('ejs')
-import { EntityNameFormats } from './formatting'
 
 /**
  * Checks if a project has been initialized by looking for the required directories
@@ -37,13 +38,7 @@ export function createEntityDirectories(entityName: string, projectPath?: string
 	try {
 		// Create domain layer directories
 		const domainDir = path.join(basePath, 'src', 'core', 'domain', entityName)
-		const domainSubdirs = [
-			'entity',
-			'repository',
-			'use-case',
-			'exception',
-			'di',
-		]
+		const domainSubdirs = ['entity', 'repository', 'use-case', 'exception', 'di']
 
 		domainSubdirs.forEach(dir => {
 			fs.ensureDirSync(path.join(domainDir, dir))

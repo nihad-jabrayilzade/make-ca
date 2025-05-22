@@ -1,17 +1,10 @@
 import path from 'path'
-const ora = require('ora')
-const chalk = require('chalk')
 import { formatEntityName } from '../utils/formatting'
 import { isProjectInitialized, createEntityDirectories, renderTemplate } from '../utils/filesystem'
+import { GenerateOptions } from 'src/types'
 
-interface GenerateOptions {
-	skipDomain?: boolean
-	skipInfrastructure?: boolean
-	skipApplication?: boolean
-	onlyDomain?: boolean
-	onlyInfrastructure?: boolean
-	onlyApplication?: boolean
-}
+const ora = require('ora')
+const chalk = require('chalk')
 
 /**
  * Handler for the 'generate' command

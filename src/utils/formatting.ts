@@ -1,14 +1,7 @@
 import { camelCase, pascalCase, paramCase } from 'change-case'
-const pluralize = require('pluralize')
+import { EntityNameFormats } from '../types'
 
-export interface EntityNameFormats {
-	kebabCase: string // e.g., "user-profile"
-	camelCase: string // e.g., "userProfile"
-	pascalCase: string // e.g., "UserProfile"
-	pluralKebabCase: string // e.g., "user-profiles"
-	pluralCamelCase: string // e.g., "userProfiles"
-	pluralPascalCase: string // e.g., "UserProfiles"
-}
+const pluralize = require('pluralize')
 
 /**
  * Generates all necessary format variations of an entity name
