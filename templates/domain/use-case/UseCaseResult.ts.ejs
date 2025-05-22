@@ -1,0 +1,10 @@
+import { UseCaseResult } from "@core/shared/use-case";
+import { <%= entity.pascalCase %> } from "@core/domain/<%= entity.kebabCase %>/entity";
+
+export namespace <%= entity.pascalCase %>UseCaseResult {
+  export type Get = UseCaseResult.Get<<%= entity.pascalCase %>>;
+  export type GetMany = UseCaseResult.GetMany<<%= entity.pascalCase %>>;
+  export type Create = UseCaseResult.Create<<%= entity.pascalCase %>>;
+  export type Update = UseCaseResult.Update<<%= entity.pascalCase %>>;
+  export type Delete = UseCaseResult.Delete<<%= entity.pascalCase %>>;
+} 

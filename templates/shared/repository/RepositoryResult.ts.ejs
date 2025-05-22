@@ -1,0 +1,20 @@
+import { Id } from "@core/shared/type";
+
+export namespace RepositoryResult {
+  export type Get<E> = Promise<E>;
+    
+  export type GetMany<E> = Promise<{
+    items: E[];
+    totalItems: number;
+  }>;
+
+  export type Create<E> = Promise<{
+    id: Id;
+  }>;
+
+  export type Update<E> = Promise<E>;
+
+  export type Delete<E> = Promise<E>;
+
+  export type IsExists = Promise<boolean>;
+} 

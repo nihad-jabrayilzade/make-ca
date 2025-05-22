@@ -1,0 +1,20 @@
+import { Id, RequireAtLeastOne } from "@core/shared/type";
+
+export namespace RepositoryPort {
+  export type Get<E extends { id: Id }> = {
+    id: E["id"];
+  };
+
+  export type GetMany = {
+    offset: number;
+    limit: number;
+  };
+
+  export type Create<E> = Partial<E>;
+
+  export type Update<E> = E;
+
+  export type Delete<E> = E;
+    
+  export type IsExists<E extends { id: Id }> = RequireAtLeastOne<Pick<E, "id">>;
+}

@@ -1,0 +1,14 @@
+export namespace UseCaseResult {
+  export type Get<E> = Promise<E>;
+
+  export type GetMany<E> = Promise<{
+    items: E[];
+    totalItems: number;
+  }>;
+
+  export type Create<E> = Promise<E>
+
+  export type Update<E> = Promise<E>; 
+
+  export type Delete<E> = Promise<E>;
+} 

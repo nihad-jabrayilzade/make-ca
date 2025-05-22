@@ -1,0 +1,11 @@
+import { RepositoryPort } from "@core/shared/repository";
+import { <%= entity.pascalCase %> } from "@core/domain/<%= entity.kebabCase %>/entity";
+
+export namespace <%= entity.pascalCase %>RepositoryPort {
+  export type Get = RepositoryPort.Get<<%= entity.pascalCase %>>;
+  export type GetMany = RepositoryPort.GetMany;
+  export type Create = RepositoryPort.Create<<%= entity.pascalCase %>>;
+  export type Update = RepositoryPort.Update<<%= entity.pascalCase %>>;
+  export type Delete = RepositoryPort.Delete<<%= entity.pascalCase %>>;
+  export type IsExists = RepositoryPort.IsExists<<%= entity.pascalCase %>>;
+} 

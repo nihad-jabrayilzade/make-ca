@@ -4,15 +4,11 @@ import { RestApiGet<%= entity.pluralPascalCase %>Query, RestApiCreate<%= entity.
 import { <%= entity.pascalCase %>DITokens } from "@core/domain/<%= entity.kebabCase %>/di";
 import {
   Get<%= entity.pascalCase %>UseCase,
-  Get<%= entity.pascalCase %>UseCaseResult,
   Get<%= entity.pluralPascalCase %>UseCase,
-  Get<%= entity.pluralPascalCase %>UseCaseResult,
   Create<%= entity.pascalCase %>UseCase,
-  Create<%= entity.pascalCase %>UseCaseResult,
   Update<%= entity.pascalCase %>UseCase,
-  Update<%= entity.pascalCase %>UseCaseResult,
   Delete<%= entity.pascalCase %>UseCase,
-  Delete<%= entity.pascalCase %>UseCaseResult,
+  <%= entity.pascalCase %>UseCaseResult,
 } from "@core/domain/<%= entity.kebabCase %>/use-case";
 
 @Controller("<%= entity.pluralKebabCase %>")
@@ -28,7 +24,7 @@ export class <%= entity.pascalCase %>Controller {
   ) {}
 
   @Get()
-  public async get<%= entity.pluralPascalCase %>(@Query() query: RestApiGet<%= entity.pluralPascalCase %>Query): Get<%= entity.pluralPascalCase %>UseCaseResult {
+  public async get<%= entity.pluralPascalCase %>(@Query() query: RestApiGet<%= entity.pluralPascalCase %>Query): <%= entity.pascalCase %>UseCaseResult.GetMany {
     const result = await this.get<%= entity.pluralPascalCase %>UseCase.execute({
       offset: query.offset,
       limit: query.limit,
@@ -38,7 +34,7 @@ export class <%= entity.pascalCase %>Controller {
   }
 
   @Get(":id")
-  public async get<%= entity.pascalCase %>(@Param("id", new ParseIntPipe()) id: number): Get<%= entity.pascalCase %>UseCaseResult {
+  public async get<%= entity.pascalCase %>(@Param("id", new ParseIntPipe()) id: number): <%= entity.pascalCase %>UseCaseResult.Get {
     const result = await this.get<%= entity.pascalCase %>UseCase.execute({
       id,
     });
@@ -47,14 +43,14 @@ export class <%= entity.pascalCase %>Controller {
   }
 
   @Post()
-  public async create<%= entity.pascalCase %>(@Body() body: RestApiCreate<%= entity.pascalCase %>Body): Create<%= entity.pascalCase %>UseCaseResult {
+  public async create<%= entity.pascalCase %>(@Body() body: RestApiCreate<%= entity.pascalCase %>Body): <%= entity.pascalCase %>UseCaseResult.Create {
     const result = await this.create<%= entity.pascalCase %>UseCase.execute(body);
 
     return result;
   }
 
   @Put(":id")
-  public async update<%= entity.pascalCase %>(@Param("id", new ParseIntPipe()) id: number, @Body() body: RestApiUpdate<%= entity.pascalCase %>Body): Update<%= entity.pascalCase %>UseCaseResult {
+  public async update<%= entity.pascalCase %>(@Param("id", new ParseIntPipe()) id: number, @Body() body: RestApiUpdate<%= entity.pascalCase %>Body): <%= entity.pascalCase %>UseCaseResult.Update {
     const result = await this.update<%= entity.pascalCase %>UseCase.execute({
       id,
       ...body,
@@ -64,7 +60,7 @@ export class <%= entity.pascalCase %>Controller {
   }
 
   @Delete(":id")
-  public async delete<%= entity.pascalCase %>(@Param("id", new ParseIntPipe()) id: number): Delete<%= entity.pascalCase %>UseCaseResult {
+  public async delete<%= entity.pascalCase %>(@Param("id", new ParseIntPipe()) id: number): <%= entity.pascalCase %>UseCaseResult.Delete {
     const result = await this.delete<%= entity.pascalCase %>UseCase.execute({
       id,
     });

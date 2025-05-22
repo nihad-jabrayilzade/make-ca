@@ -1,10 +1,10 @@
 import { <%= entity.pascalCase %>Repository } from "@core/domain/<%= entity.kebabCase %>/repository";
-import { Get<%= entity.pluralPascalCase %>UseCase, Get<%= entity.pluralPascalCase %>UseCaseResult, Get<%= entity.pluralPascalCase %>UseCasePort } from "@core/domain/<%= entity.kebabCase %>/use-case";
+import { <%= entity.pascalCase %>UseCasePort, <%= entity.pascalCase %>UseCaseResult, Get<%= entity.pluralPascalCase %>UseCase } from "@core/domain/<%= entity.kebabCase %>/use-case";
 
 export class Get<%= entity.pluralPascalCase %>Service implements Get<%= entity.pluralPascalCase %>UseCase {
   constructor(private readonly <%= entity.camelCase %>Repository: <%= entity.pascalCase %>Repository) {}
 
-  public async execute(port: Get<%= entity.pluralPascalCase %>UseCasePort): Get<%= entity.pluralPascalCase %>UseCaseResult {
+  public async execute(port: <%= entity.pascalCase %>UseCasePort.GetMany): <%= entity.pascalCase %>UseCaseResult.GetMany {
     const result = await this.<%= entity.camelCase %>Repository.get<%= entity.pluralPascalCase %>(port);
 
     return result;

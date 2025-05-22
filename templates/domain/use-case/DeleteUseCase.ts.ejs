@@ -1,4 +1,4 @@
 import { UseCase } from "@core/shared/use-case";
-import { Delete<%= entity.pascalCase %>UseCasePort, Delete<%= entity.pascalCase %>UseCaseResult } from "@core/domain/<%= entity.kebabCase %>/use-case";
+import { <%= entity.pascalCase %>UseCasePort, <%= entity.pascalCase %>UseCaseResult } from "@core/domain/<%= entity.kebabCase %>/use-case";
 
-export type Delete<%= entity.pascalCase %>UseCase = UseCase<Delete<%= entity.pascalCase %>UseCasePort, Delete<%= entity.pascalCase %>UseCaseResult>; 
+export type Delete<%= entity.pascalCase %>UseCase = UseCase<<%= entity.pascalCase %>UseCasePort.Delete, <%= entity.pascalCase %>UseCaseResult.Delete>; 

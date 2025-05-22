@@ -104,98 +104,36 @@ export async function generateCommand(entityName: string, options: GenerateOptio
 				)
 
 				await renderTemplate(
+					path.join(templatesDir, 'domain/repository/RepositoryPort.ts.ejs'),
+					path.join(dirs.domainDir, 'repository', `${entity.pascalCase}RepositoryPort.ts`),
+					{ entity }
+				)
+
+				await renderTemplate(
+					path.join(templatesDir, 'domain/repository/RepositoryResult.ts.ejs'),
+					path.join(dirs.domainDir, 'repository', `${entity.pascalCase}RepositoryResult.ts`),
+					{ entity }
+				)
+
+				await renderTemplate(
 					path.join(templatesDir, 'domain/repository/index.ts.ejs'),
 					path.join(dirs.domainDir, 'repository', 'index.ts'),
 					{ entity }
 				)
 
-				// Repository ports
-				await renderTemplate(
-					path.join(templatesDir, 'domain/repository/port/GetPort.ts.ejs'),
-					path.join(dirs.domainDir, 'repository', 'port', `Get${entity.pascalCase}RepositoryPort.ts`),
-					{ entity }
-				)
-
-				await renderTemplate(
-					path.join(templatesDir, 'domain/repository/port/GetAllPort.ts.ejs'),
-					path.join(dirs.domainDir, 'repository', 'port', `Get${entity.pluralPascalCase}RepositoryPort.ts`),
-					{ entity }
-				)
-
-				await renderTemplate(
-					path.join(templatesDir, 'domain/repository/port/CreatePort.ts.ejs'),
-					path.join(dirs.domainDir, 'repository', 'port', `Create${entity.pascalCase}RepositoryPort.ts`),
-					{ entity }
-				)
-
-				await renderTemplate(
-					path.join(templatesDir, 'domain/repository/port/UpdatePort.ts.ejs'),
-					path.join(dirs.domainDir, 'repository', 'port', `Update${entity.pascalCase}RepositoryPort.ts`),
-					{ entity }
-				)
-
-				await renderTemplate(
-					path.join(templatesDir, 'domain/repository/port/DeletePort.ts.ejs'),
-					path.join(dirs.domainDir, 'repository', 'port', `Delete${entity.pascalCase}RepositoryPort.ts`),
-					{ entity }
-				)
-
-				await renderTemplate(
-					path.join(templatesDir, 'domain/repository/port/IsExistsPort.ts.ejs'),
-					path.join(dirs.domainDir, 'repository', 'port', `Is${entity.pascalCase}ExistsRepositoryPort.ts`),
-					{ entity }
-				)
-
-				await renderTemplate(
-					path.join(templatesDir, 'domain/repository/port/index.ts.ejs'),
-					path.join(dirs.domainDir, 'repository', 'port', 'index.ts'),
-					{ entity }
-				)
-
-				// Repository results
-				await renderTemplate(
-					path.join(templatesDir, 'domain/repository/result/GetResult.ts.ejs'),
-					path.join(dirs.domainDir, 'repository', 'result', `Get${entity.pascalCase}RepositoryResult.ts`),
-					{ entity }
-				)
-
-				await renderTemplate(
-					path.join(templatesDir, 'domain/repository/result/GetAllResult.ts.ejs'),
-					path.join(dirs.domainDir, 'repository', 'result', `Get${entity.pluralPascalCase}RepositoryResult.ts`),
-					{ entity }
-				)
-
-				await renderTemplate(
-					path.join(templatesDir, 'domain/repository/result/CreateResult.ts.ejs'),
-					path.join(dirs.domainDir, 'repository', 'result', `Create${entity.pascalCase}RepositoryResult.ts`),
-					{ entity }
-				)
-
-				await renderTemplate(
-					path.join(templatesDir, 'domain/repository/result/UpdateResult.ts.ejs'),
-					path.join(dirs.domainDir, 'repository', 'result', `Update${entity.pascalCase}RepositoryResult.ts`),
-					{ entity }
-				)
-
-				await renderTemplate(
-					path.join(templatesDir, 'domain/repository/result/DeleteResult.ts.ejs'),
-					path.join(dirs.domainDir, 'repository', 'result', `Delete${entity.pascalCase}RepositoryResult.ts`),
-					{ entity }
-				)
-
-				await renderTemplate(
-					path.join(templatesDir, 'domain/repository/result/IsExistsResult.ts.ejs'),
-					path.join(dirs.domainDir, 'repository', 'result', `Is${entity.pascalCase}ExistsRepositoryResult.ts`),
-					{ entity }
-				)
-
-				await renderTemplate(
-					path.join(templatesDir, 'domain/repository/result/index.ts.ejs'),
-					path.join(dirs.domainDir, 'repository', 'result', 'index.ts'),
-					{ entity }
-				)
-
 				// Use cases
+				await renderTemplate(
+					path.join(templatesDir, 'domain/use-case/UseCasePort.ts.ejs'),
+					path.join(dirs.domainDir, 'use-case', `${entity.pascalCase}UseCasePort.ts`),
+					{ entity }
+				)
+
+				await renderTemplate(
+					path.join(templatesDir, 'domain/use-case/UseCaseResult.ts.ejs'),
+					path.join(dirs.domainDir, 'use-case', `${entity.pascalCase}UseCaseResult.ts`),
+					{ entity }
+				)
+
 				await renderTemplate(
 					path.join(templatesDir, 'domain/use-case/GetUseCase.ts.ejs'),
 					path.join(dirs.domainDir, 'use-case', `Get${entity.pascalCase}UseCase.ts`),
@@ -203,7 +141,7 @@ export async function generateCommand(entityName: string, options: GenerateOptio
 				)
 
 				await renderTemplate(
-					path.join(templatesDir, 'domain/use-case/GetAllUseCase.ts.ejs'),
+					path.join(templatesDir, 'domain/use-case/GetManyUseCase.ts.ejs'),
 					path.join(dirs.domainDir, 'use-case', `Get${entity.pluralPascalCase}UseCase.ts`),
 					{ entity }
 				)
@@ -232,80 +170,6 @@ export async function generateCommand(entityName: string, options: GenerateOptio
 					{ entity }
 				)
 
-				// Use case ports
-				await renderTemplate(
-					path.join(templatesDir, 'domain/use-case/port/GetPort.ts.ejs'),
-					path.join(dirs.domainDir, 'use-case', 'port', `Get${entity.pascalCase}UseCasePort.ts`),
-					{ entity }
-				)
-
-				await renderTemplate(
-					path.join(templatesDir, 'domain/use-case/port/GetAllPort.ts.ejs'),
-					path.join(dirs.domainDir, 'use-case', 'port', `Get${entity.pluralPascalCase}UseCasePort.ts`),
-					{ entity }
-				)
-
-				await renderTemplate(
-					path.join(templatesDir, 'domain/use-case/port/CreatePort.ts.ejs'),
-					path.join(dirs.domainDir, 'use-case', 'port', `Create${entity.pascalCase}UseCasePort.ts`),
-					{ entity }
-				)
-
-				await renderTemplate(
-					path.join(templatesDir, 'domain/use-case/port/UpdatePort.ts.ejs'),
-					path.join(dirs.domainDir, 'use-case', 'port', `Update${entity.pascalCase}UseCasePort.ts`),
-					{ entity }
-				)
-
-				await renderTemplate(
-					path.join(templatesDir, 'domain/use-case/port/DeletePort.ts.ejs'),
-					path.join(dirs.domainDir, 'use-case', 'port', `Delete${entity.pascalCase}UseCasePort.ts`),
-					{ entity }
-				)
-
-				await renderTemplate(
-					path.join(templatesDir, 'domain/use-case/port/index.ts.ejs'),
-					path.join(dirs.domainDir, 'use-case', 'port', 'index.ts'),
-					{ entity }
-				)
-
-				// Use case results
-				await renderTemplate(
-					path.join(templatesDir, 'domain/use-case/result/GetResult.ts.ejs'),
-					path.join(dirs.domainDir, 'use-case', 'result', `Get${entity.pascalCase}UseCaseResult.ts`),
-					{ entity }
-				)
-
-				await renderTemplate(
-					path.join(templatesDir, 'domain/use-case/result/GetAllResult.ts.ejs'),
-					path.join(dirs.domainDir, 'use-case', 'result', `Get${entity.pluralPascalCase}UseCaseResult.ts`),
-					{ entity }
-				)
-
-				await renderTemplate(
-					path.join(templatesDir, 'domain/use-case/result/CreateResult.ts.ejs'),
-					path.join(dirs.domainDir, 'use-case', 'result', `Create${entity.pascalCase}UseCaseResult.ts`),
-					{ entity }
-				)
-
-				await renderTemplate(
-					path.join(templatesDir, 'domain/use-case/result/UpdateResult.ts.ejs'),
-					path.join(dirs.domainDir, 'use-case', 'result', `Update${entity.pascalCase}UseCaseResult.ts`),
-					{ entity }
-				)
-
-				await renderTemplate(
-					path.join(templatesDir, 'domain/use-case/result/DeleteResult.ts.ejs'),
-					path.join(dirs.domainDir, 'use-case', 'result', `Delete${entity.pascalCase}UseCaseResult.ts`),
-					{ entity }
-				)
-
-				await renderTemplate(
-					path.join(templatesDir, 'domain/use-case/result/index.ts.ejs'),
-					path.join(dirs.domainDir, 'use-case', 'result', 'index.ts'),
-					{ entity }
-				)
-
 				domainSpinner.succeed(chalk.green('Domain layer generated successfully'))
 			} catch (error) {
 				domainSpinner.fail(chalk.red('Failed to generate domain layer'))
@@ -325,7 +189,7 @@ export async function generateCommand(entityName: string, options: GenerateOptio
 				)
 
 				await renderTemplate(
-					path.join(templatesDir, 'service/GetAllService.ts.ejs'),
+					path.join(templatesDir, 'service/GetManyService.ts.ejs'),
 					path.join(dirs.serviceDir, `Get${entity.pluralPascalCase}Service.ts`),
 					{ entity }
 				)

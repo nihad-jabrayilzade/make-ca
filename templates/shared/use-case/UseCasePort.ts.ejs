@@ -1,0 +1,18 @@
+export namespace UseCasePort {
+  export type Get<E extends { id: number }> = {
+    id: E["id"];
+  };
+
+  export interface GetMany {
+    limit: number;
+    offset: number;
+  }
+
+  export type Update<E extends { id: number }> = {
+    id: E["id"];
+  };
+
+  export type Delete<E extends { id: number }> = {
+    id: E["id"];
+  };
+} 

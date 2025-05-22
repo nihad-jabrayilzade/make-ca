@@ -1,4 +1,4 @@
 import { UseCase } from "@core/shared/use-case";
 import { <%= entity.pascalCase %>UseCasePort, <%= entity.pascalCase %>UseCaseResult } from "@core/domain/<%= entity.kebabCase %>/use-case";
 
-export type Update<%= entity.pascalCase %>UseCase = UseCase<<%= entity.pascalCase %>UseCasePort.Update, <%= entity.pascalCase %>UseCaseResult.Update>; 
+export type Get<%= entity.pluralPascalCase %>UseCase = UseCase<<%= entity.pascalCase %>UseCasePort.GetMany, <%= entity.pascalCase %>UseCaseResult.GetMany>; 
