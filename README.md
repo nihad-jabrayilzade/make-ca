@@ -50,9 +50,6 @@ npx make-ca init
 ### Generate an entity
 
 ```bash
-# Generate a complete entity with all layers
-npx make-ca generate user -p my-clean-app
-
 # Generate in the current directory
 npx make-ca generate product
 ```
