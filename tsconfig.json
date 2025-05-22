@@ -27,5 +27,5 @@
 		"moduleResolution": "node"
 	},
 	"include": ["src/**/*"],
-	"exclude": ["node_modules", "dist", "make-ca-project"]
+	"exclude": ["node_modules", "dist", "my-clean-project"]
 }

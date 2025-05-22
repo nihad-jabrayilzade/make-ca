@@ -32,7 +32,6 @@ logs/
 tmp/
 temp/
 template/
-make-ca-project/
 
 # Optional npm cache directory
 .npm

@@ -8,14 +8,14 @@ import { isProjectInitialized, initializeProjectStructure } from '../utils/files
  * Handler for the 'init' command
  * Initializes a new clean architecture project structure
  * 
- * @param targetPath Optional path where the project should be initialized (defaults to 'make-ca-project' directory)
+ * @param targetPath Optional path where the project should be initialized (defaults to 'my-clean-project' directory)
  */
 export async function initCommand(targetPath?: string): Promise<void> {
   const spinner = ora('Starting project initialization...').start();
   
   try {
-    // Use the provided path or default to 'make-ca-project' directory
-    const projectPath = targetPath ? path.resolve(targetPath) : path.resolve(process.cwd(), 'make-ca-project');
+    // Use the provided path or default to 'my-clean-project' directory
+    const projectPath = targetPath ? path.resolve(targetPath) : path.resolve(process.cwd(), 'my-clean-projectt');
     
     // Create the directory if it doesn't exist
     try {
