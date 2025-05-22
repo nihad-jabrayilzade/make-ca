@@ -15,7 +15,7 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org/'
       
-      - run: npm ci
+      - run: npm install
       - run: npm run build
       
       - name: Create Release
@@ -29,8 +29,14 @@ jobs:
           draft: false
           prerelease: false
       
+      - name: Setup Node.js for GitHub Packages
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@nihad-jabrayilzade'
+      
       - name: Publish to GitHub Packages
-        run: npm publish
+        run: npm publish --registry=https://npm.pkg.github.com
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          registry-url: 'https://npm.pkg.github.com' 
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
